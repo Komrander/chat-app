@@ -70,7 +70,7 @@ export default function Home() {
               Docs <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
-              lmaooooooooo bout Next.js features and&nbsp;API.
+              Learn more about Next.js features and&nbsp;API.
             </p>
           </a>
 
