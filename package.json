@@ -9,11 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^1.0.5",
     "@next/font": "13.1.6",
+    "@prisma/client": "^4.10.1",
+    "bcrypt": "^5.1.0",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
+    "next-auth": "^4.19.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.2",
+    "react-native": "^0.71.3"
+  },
+  "devDependencies": {
+    "@types/node": "18.14.0",
+    "@types/react": "^18.0.28",
+    "prisma": "^4.10.1",
+    "typescript": "4.9.5"
   }
 }
