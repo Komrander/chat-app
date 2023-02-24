@@ -1,13 +1,17 @@
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
-export default function Homepage() {
+export default function LandingPage() {
     const {data:session, status} = useSession();
-    return (
-        <>
-            {status === "authenticated" &&
+
+    if (status === "authenticated") {
+        return (
+            <>
                 <p>Signed in as {session.user.email}</p>
-            }
-            <button onClick={() => signIn()}>Sign in</button>
-        </>
+                <button onClick={() => signOut()}>Sign out</button>
+            </>
+        )
+    }
+    return (
+        <button onClick={() => signIn(undefined, {callbackUrl: '/app'})}>Sign in</button>
     )
 }

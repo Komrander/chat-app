@@ -18,7 +18,7 @@ export default NextAuth({
 
         const user = await prisma.user.findFirst({
           where: {
-            email: credentials.email
+            email: credentials.email,
           }
         });
 
@@ -30,14 +30,17 @@ export default NextAuth({
         const isValid = await bcrypt.compare(credentials.password, user.password)
 
         if (isValid) {
-          return user
+          return {id: user.id, name: user.name, email: user.email,}
         }
         else
         {
-          throw new Error(user.password)//"Wrong email or password!")
+          throw new Error("Wrong email or password!")
         }
       }
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy:"jwt",
+  },
 })
