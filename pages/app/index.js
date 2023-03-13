@@ -1,16 +1,27 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+
+import styles from '../../styles/App.module.css';
+import Layout from "../../components/app/layout";
+import Header from '../../components/app/header';
+import Sidenav from "../../components/app/sidenav";
+import Sidemenu from "../../components/app/sidemenu";
+import Chat from "../../components/app/chat";
 
 export default function Homepage() {
     const {data:session, status} = useSession({required: true,});
 
-    if (status === "loading") {
-        return "Loading or not authenticated..."
-    }
-
     return (
-        <>
-            <p>Signed in as {session.user.email}</p>
-            <button onClick={() => signOut({callbackUrl: '/..'})}>Sign out</button>
-        </>
+        <div className={styles.wrapper}>
+            <Layout>
+                <Sidenav/>
+                <div className={styles.main}>
+                    <Header/>
+                    <Layout>
+                        <Chat/>
+                        <Sidemenu/>
+                    </Layout>
+                </div>
+            </Layout>
+        </div>
     )
 }

@@ -1,0 +1,41 @@
+.container {
+    flex-grow: 1;
+    background-color: #FBFDFA;
+    padding: 0 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.messageContainer {
+    flex-grow: 1;
+}
+
+.inputBar {
+    background-color: #E0E0E0;
+    border-radius: 28px;
+    max-height: 50%;
+    padding: 0 4px 0 18px;
+    display: flex;
+}
+
+.textarea {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow-y: auto;
+    margin: 12px 0;
+    max-height: 100%;
+    height: auto;
+    line-height: 24px;
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.textarea:empty:before {
+    content: attr(data-placeholder);
+    pointer-events: none;
+    display: block;
+    color: #747876;
+}
