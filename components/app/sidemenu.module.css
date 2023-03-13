@@ -1,0 +1,7 @@
+.container {
+    width: 328px;
+    background-color: #EFF1EE;
+    padding: 12px;
+    height: calc(100vh - 56px);
+    border-left: 2px solid #C4C7C5;
+}
