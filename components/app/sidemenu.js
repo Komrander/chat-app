@@ -12,6 +12,23 @@ export default function Sidemenu() {
 
     return (
         <div className={styles.container}>
+            <div className={styles.titleContainer}>
+                <h1 className={styles.title}>Details</h1>
+            </div>
+            <div className={styles.titleContainer}>
+                <h1 className={styles.subtitle}>About</h1>
+            </div>
+            <div className={styles.infoContainer}>
+                <h1 className={styles.infoTitle}>group 1</h1>
+                <p className={styles.infoSubtitle}>group description</p>
+            </div>
+            <div className={styles.buttonContainer}>
+                <Button title="Invite friend"/>
+                <Button title="Leave group" style="negative"/>
+            </div>
+            <div className={styles.titleContainer}>
+                <h1 className={styles.subtitle}>Members - 3</h1>
+            </div>
         </div>
     )
 }
