@@ -5,3 +5,38 @@
     height: calc(100vh - 56px);
     border-left: 2px solid #C4C7C5;
 }
+
+.titleContainer {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    width: 100%;
+    padding-left: 16px;
+}
+
+.title {
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 400;
+    width: 100%;
+}
+
+.subtitle {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    width: 100%;
+}
+
+.infoContainer {
+    background-color: #DBE5E0;
+    padding: 16px;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+}
