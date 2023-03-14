@@ -6,9 +6,100 @@
     flex-direction: column;
 }
 
+/* MESSAGE CSS */
+
 .messageContainer {
     flex-grow: 1;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
 }
+
+/* Response messages */
+
+.responseMessage {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+}
+
+.responseMessageContainer {
+    max-width: 456px;
+}
+
+.responseMessageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 4px;
+}
+
+.responseMessageName {
+    color: #191C1B;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.responseMessageDate {
+    color: #3F4945;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.responseMessageBody {
+    background-color: #E1E3E0;
+    border-radius: 12px;
+    padding: 8px;
+    min-height: 40px;
+}
+
+.responseMessageText {
+    color: #2E3130;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+/* User messages */
+
+.userMessage {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 12px 0;
+}
+
+.userMessageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.userMessageDate {
+    color: #3F4945;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    margin-bottom: 4px;
+}
+
+.userMessageBody {
+    background-color: #426277;
+    border-radius: 12px;
+    padding: 8px;
+    min-height: 40px;
+}
+
+.userMessageText {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+/* INPUT BAR CSS */
 
 .inputBar {
     background-color: #E0E0E0;
