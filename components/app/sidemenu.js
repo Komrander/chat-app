@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import styles from './sidemenu.module.css';
 
 import Button from './button';
+import Profile from './profile';
 
 export default function Sidemenu() {
     const {data:session, status} = useSession();
@@ -19,6 +20,7 @@ export default function Sidemenu() {
                 <h1 className={styles.subtitle}>About</h1>
             </div>
             <div className={styles.infoContainer}>
+                <Profile style="large">g</Profile>
                 <h1 className={styles.infoTitle}>group 1</h1>
                 <p className={styles.infoSubtitle}>group description</p>
             </div>
@@ -29,6 +31,9 @@ export default function Sidemenu() {
             <div className={styles.titleContainer}>
                 <h1 className={styles.subtitle}>Members - 3</h1>
             </div>
+            <Profile style="full"></Profile>
+            <Profile style="full"></Profile>
+            <Profile style="full"></Profile>
         </div>
     )
 }
