@@ -22,3 +22,74 @@
     align-items: center;
     padding: 8px;
 }
+
+.navButton {
+    display: flex;
+    height: 56px;
+    padding: 8px 20px;
+    gap: 12px;
+}
+
+.navButtonContainer {
+    height: 40px;
+    width: calc(100% - 52px);
+}
+
+.navButtonHeader {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.navButtonContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 12px;
+}
+
+.navButtonName {
+    color: #FBFDFA;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.navButtonTime {
+    color: #FBFDFA;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.navButtonMessage {
+    color: #8EAFC7;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+.navButtonMessageUnread {
+    color: #FBFDFA;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+.navButtonNotification {
+    background-color: #DF590D;
+    min-height: 16px;
+    min-width: 16px;
+    border-radius: 100px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+}

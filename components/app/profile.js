@@ -24,6 +24,12 @@ export default function Profile(props) {
                     f
                 </button>
             )
+        case "small":
+            return (
+                <button className={styles.buttonSmall} >
+                    f
+                </button>
+            )
         default:
             return (
                 <p>no style specified</p>
