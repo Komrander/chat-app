@@ -1,6 +1,7 @@
 .buttonLarge {
     height: 60px;
     width: 60px;
+    min-width: 60px;
     border-radius: 100px;
     border: none;
     background-color: #62BEC1;
@@ -12,6 +13,7 @@
 .buttonSmall {
     height: 40px;
     width: 40px;
+    min-width: 40px;
     border-radius: 100px;
     border: none;
     background-color: #62BEC1;
@@ -39,6 +41,7 @@
 .buttonMedium {
     height: 48px;
     width: 48px;
+    min-width: 48px;
     border-radius: 100px;
     border: none;
     background-color: #62BEC1;
