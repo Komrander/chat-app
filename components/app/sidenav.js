@@ -1,15 +1,18 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { useSession } from "next-auth/react";
 import styles from './sidenav.module.css';
 
 import Button from './button';
 import Profile from './profile';
 
-export default function Sidenav() {
+function Sidenav({ message }) {
     const {data:session, status} = useSession();
 
     if (status === "loading") {
         return "Loading or not authenticated..."
     }
+
+    console.log(message);
 
     return (
         <div className={styles.container}>
@@ -57,3 +60,13 @@ export default function Sidenav() {
         </div>
     )
 }
+
+export async function getServerSideProps() {
+    return {
+        props: {
+            message: 'kurva'
+        }
+    }
+}
+
+export default Sidenav;
