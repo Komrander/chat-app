@@ -40,7 +40,7 @@ export default function Chat() {
                 className={styles.textarea}
                 role="textbox" 
                 data-placeholder="Type a message to group 1..."/>
-                <Icon image="icons/send.png" imageDark="icons/sendDark.png"/>
+                <Icon image="/icons/send.png" imageDark="/icons/sendDark.png"/>
             </div>
         </div>
     )

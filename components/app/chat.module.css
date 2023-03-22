@@ -32,7 +32,7 @@
 .responseMessageHeader {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: flex-end;
     margin-bottom: 4px;
 }
 
@@ -75,7 +75,7 @@
 .userMessageContainer {
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .userMessageDate {
