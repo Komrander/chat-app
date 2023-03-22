@@ -31,5 +31,5 @@ export default function handler(req, res) {
   
     // Found the name.
     // Sends a HTTP success code
-    res.status(200).json()
+    res.redirect(200, '/app/chats/1')
 }

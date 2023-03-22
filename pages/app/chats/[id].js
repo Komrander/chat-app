@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
+import React from 'react';
 import prisma from "../../../lib/prismadb";
 
 import styles from '../../../styles/App.module.css';
@@ -9,15 +10,23 @@ import Sidenav from "../../../components/app/sidenav";
 import Sidemenu from "../../../components/app/sidemenu";
 import Chat from "../../../components/app/chat";
 import Popup from "../../../components/app/popup";
+import Button from "../../../components/app/button";
 
 export default function Homepage(props) {
     const {data: session} = useSession({required: true,});
+    const [showPopup, setShowPopup] = React.useState(false);
+
+    function handleChangePopup() {
+        setShowPopup(!showPopup);
+    }
 
     return (
         <div className={styles.wrapper}>
-            <Popup/>
+            {(showPopup)&&(<Popup><Button onClick={handleChangePopup} title="Cancel"/></Popup>)}
             <Layout>
-                <Sidenav chats={props.chats}/>
+                <Sidenav chats={props.chats} id={props.id} onClick={handleChangePopup} >
+                    <Button onClick={handleChangePopup} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
+                </Sidenav>
                 <div className={styles.main}>
                     <Header chatName={props.chat.name}/>
                     <Layout>
@@ -51,7 +60,8 @@ export async function getServerSideProps(context) {
     return {
         props: {
             chats: user.chats,
-            chat: chat
+            chat: chat,
+            id: id,
         }
     }
 }
