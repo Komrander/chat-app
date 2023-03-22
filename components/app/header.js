@@ -3,7 +3,7 @@ import styles from './header.module.css';
 
 import Icon from './icon';
 
-export default function Header() {
+export default function Header(props) {
     const {data:session, status} = useSession();
 
     if (status === "loading") {
@@ -12,9 +12,9 @@ export default function Header() {
 
     return (
         <div className={styles.container}>
-            <p className={styles.chatTitle}>group 1</p>
-            <Icon onClick={() => signOut({callbackUrl: '/..'})} image="icons/account.png" imageDark="icons/accountDark.png"/>
-            <Icon image="icons/settings.png" imageDark="icons/settingsDark.png"/>
+            <p className={styles.chatTitle}>{props.chatName}</p>
+            <Icon onClick={() => signOut({callbackUrl: '/..'})} image="/icons/account.png" imageDark="/icons/accountDark.png"/>
+            <Icon image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
         </div>
     )
 }
