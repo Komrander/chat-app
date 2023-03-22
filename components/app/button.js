@@ -7,7 +7,9 @@ export default function Button(props) {
     return (
         <button className={(props.style == "negative") ? styles.buttonNegative : styles.button}
         onMouseEnter={() => setIsDark(true)}
-        onMouseLeave={() => setIsDark(false)}>
+        onMouseLeave={() => setIsDark(false)}
+        onClick={props.onClick}
+        type={props.type}>
             {(props.image && props.imageDark) &&
             <img className={styles.image} src={(isDark) ? (props.imageDark) : (props.image)}/>
             }

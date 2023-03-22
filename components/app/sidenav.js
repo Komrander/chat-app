@@ -15,7 +15,7 @@ export default function Sidenav(props) {
         <div className={styles.container}>
             <div className={styles.titleContainer}>
                 <h1 className={styles.title}>Chats</h1>
-                <Button title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
+                {props.children}
             </div>
             {
                 props.chats.map(chat =>
