@@ -24,17 +24,17 @@ export default NextAuth({
 
         if (user == null)
         {
-          throw new Error("User does not exist!")
+          return null;
         }
         
         const isValid = await bcrypt.compare(credentials.password, user.password)
 
         if (isValid) {
-          return {id: user.id, name: user.name, email: user.email,}
+          return {id: "aaaaaaaa", password: user.password, name: user.name, email: user.email};
         }
         else
         {
-          throw new Error("Wrong email or password!")
+          return null;
         }
       }
     }),
