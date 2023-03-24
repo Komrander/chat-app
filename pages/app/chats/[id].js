@@ -1,7 +1,9 @@
 import { useSession } from "next-auth/react";
+import { authOptions } from 'pages/api/auth/[...nextauth]';
 import { getServerSession } from "next-auth/next";
 import React from 'react';
 import prisma from "../../../lib/prismadb";
+import Router from 'next/router';
 
 import styles from '../../../styles/App.module.css';
 import Layout from "../../../components/app/layout";
@@ -19,6 +21,8 @@ export default function Homepage(props) {
     function handleChangePopup() {
         setShowPopup(!showPopup);
     }
+
+    console.log(session);
 
     return (
         <div className={styles.wrapper}>
@@ -41,20 +45,39 @@ export default function Homepage(props) {
 
 export async function getServerSideProps(context) {
     const { id } = context.query;
-    const session = await getServerSession(context.req, context.res);
+    const session = await getServerSession(context.req, context.res, authOptions);
 
-    const user = await prisma.user.findFirst({
-        where: { id: session.id },
+    console.log("Session", JSON.stringify(session, null, 2))
+
+    const user = await prisma.user.findUnique({
+        where: { email: session.user.email },
         include: { chats: true },
     })
 
-    const chat = await prisma.chat.findFirst({
+    const chat = await prisma.chat.findUnique({
         where: { id: parseInt(id) },
-        include: { participants: true },
+        include: {
+            participants: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+            messages: true,
+        },
     })
 
     if (!chat) {
         return { notFound: true };
+    }
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
     }
 
     return {
