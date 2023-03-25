@@ -2,32 +2,34 @@ import styles from './profile.module.css';
 import React from 'react';
 
 export default function Profile(props) {
+    const letter = props.name.charAt(0);
+
     switch (props.style) {
         case "large":
             return (
                 <button className={styles.buttonLarge} >
-                    g
+                    {letter}
                 </button>
             );
         case "full":
             return (
                 <div className={styles.fullContainer}>
                     <button className={styles.buttonSmall} >
-                        f
+                        {letter}
                     </button>
-                    <h1 className={styles.fullName}>friend 1</h1>
+                    <h1 className={styles.fullName}>{props.name}</h1>
                 </div>
             );
         case "medium":
             return (
                 <button className={styles.buttonMedium} >
-                    f
+                    {letter}
                 </button>
             )
         case "small":
             return (
                 <button className={styles.buttonSmall} >
-                    f
+                    {letter}
                 </button>
             )
         default:
