@@ -6,12 +6,6 @@ import Button from './button';
 import Profile from './profile';
 
 export default function Sidenav(props) {
-    const {data:session, status} = useSession();
-
-    if (status === "loading") {
-        return "Loading or not authenticated..."
-    }
-
     return (
         <div className={styles.container}>
             <div className={styles.titleContainer}>

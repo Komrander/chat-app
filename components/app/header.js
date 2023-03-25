@@ -4,12 +4,6 @@ import styles from './header.module.css';
 import Icon from './icon';
 
 export default function Header(props) {
-    const {data:session, status} = useSession();
-
-    if (status === "loading") {
-        return "Loading or not authenticated..."
-    }
-
     return (
         <div className={styles.container}>
             <p className={styles.chatTitle}>{props.chatName}</p>
