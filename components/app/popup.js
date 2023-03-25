@@ -28,8 +28,8 @@ export default function Popup(props) {
                         <form action="/api/group" method="post">
                             <input name="name" type="text" placeholder="Group name"></input>
                             <div>
-                                <Button type="submit" onClick={() => setPopupState(0)} title="Cancel"/>
-                                <Button title="Create new group"/>
+                                <Button onClick={() => setPopupState(0)} title="Cancel"/>
+                                <Button type="submit" title="Create new group"/>
                             </div>
                         </form>
                     </div>

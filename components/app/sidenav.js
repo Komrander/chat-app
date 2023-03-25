@@ -22,7 +22,7 @@ export default function Sidenav(props) {
                 props.chats.map(chat =>
                     <Link href={`/app/chats/${encodeURIComponent(chat.id)}`} key={chat.id}>
                         <div className={(chat.id == props.id)?(styles.navButtonHighlight):(styles.navButton)}>
-                            <Profile style="small"/>
+                            <Profile name={chat.name} style="small"/>
                             <div className={styles.navButtonContainer}>
                                 <div className={styles.navButtonHeader}>
                                     <h1 className={styles.navButtonNameHighlight}>{chat.name}</h1>

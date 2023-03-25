@@ -4,7 +4,7 @@ import styles from './sidemenu.module.css';
 import Button from './button';
 import Profile from './profile';
 
-export default function Sidemenu() {
+export default function Sidemenu(props) {
     const {data:session, status} = useSession();
 
     if (status === "loading") {
@@ -20,20 +20,22 @@ export default function Sidemenu() {
                 <h1 className={styles.subtitle}>About</h1>
             </div>
             <div className={styles.infoContainer}>
-                <Profile style="large">g</Profile>
-                <h1 className={styles.infoTitle}>group 1</h1>
-                <p className={styles.infoSubtitle}>group description</p>
+                <Profile name={props.chat.name} style="large"/>
+                <h1 className={styles.infoTitle}>{props.chat.name}</h1>
+                <p className={styles.infoSubtitle}>{props.chat.description}</p>
             </div>
             <div className={styles.buttonContainer}>
                 <Button title="Invite friend"/>
                 <Button title="Leave group" style="negative"/>
             </div>
             <div className={styles.titleContainer}>
-                <h1 className={styles.subtitle}>Members - 3</h1>
+                <h1 className={styles.subtitle}>Members - {props.chat.participants.length}</h1>
             </div>
-            <Profile style="full"></Profile>
-            <Profile style="full"></Profile>
-            <Profile style="full"></Profile>
+            {
+                props.chat.participants.map(user =>
+                    <Profile key={user.id} style="full" name={user.name}></Profile>
+                )
+            }
         </div>
     )
 }
