@@ -124,10 +124,3 @@
     font-size: 16px;
     font-weight: 400;
 }
-
-.textarea:empty:before {
-    content: attr(data-placeholder);
-    pointer-events: none;
-    display: block;
-    color: #747876;
-}
