@@ -15,9 +15,6 @@ model User {
   name          String
   email         String      @unique
   password      String      @db.Text
-  status        String?     @db.Text
-  followedBy    User[]      @relation("UserFollows")
-  following     User[]      @relation("UserFollows")
   messages      Message[]
   chats         Chat[]
 }
@@ -26,7 +23,6 @@ model Chat {
   id            Int         @id @default(autoincrement())
   name          String
   type          ChatType
-  description   String?     @db.Text
   participants  User[]
   messages      Message[]
 }

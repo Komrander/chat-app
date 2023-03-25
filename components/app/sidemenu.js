@@ -5,12 +5,6 @@ import Button from './button';
 import Profile from './profile';
 
 export default function Sidemenu(props) {
-    const {data:session, status} = useSession();
-
-    if (status === "loading") {
-        return "Loading or not authenticated..."
-    }
-
     return (
         <div className={styles.container}>
             <div className={styles.titleContainer}>
@@ -25,8 +19,10 @@ export default function Sidemenu(props) {
                 <p className={styles.infoSubtitle}>{props.chat.description}</p>
             </div>
             <div className={styles.buttonContainer}>
-                <Button title="Invite friend"/>
-                <Button title="Leave group" style="negative"/>
+                {props.children}
+                <form action="/api/leave" method="post">
+                    <Button type="submit" title="Leave group" style="negative"/>
+                </form>
             </div>
             <div className={styles.titleContainer}>
                 <h1 className={styles.subtitle}>Members - {props.chat.participants.length}</h1>

@@ -22,30 +22,31 @@ export default async function handler(req, res) {
                 },
             },
         },
-    })
-
-    const invitedUser = await prisma.user.findUnique({
-        where: {
-            email: body.email,
-        },
+        include: { participants: true },
     })
   
-    if (!body.email || !session || !chat || !invitedUser || chat.type != "GROUP" ) {
+    if (!session || !chat ) {
       return res.status(400).json({ data: 'Missing data' });
     }
 
-    const update = await prisma.chat.update({
-        where: {
-            id: parseInt(url[url.length-1]),
-        },
-        data: {
-            participants: { 
-                connect: {
-                    id: invitedUser.id,
+    if (chat.type == "DIRECT" || chat.participants.length == 1) {
+        const deleteChat = await prisma.chat.delete({
+            where: {
+                id: parseInt(url[url.length-1]),
+            },
+        })
+    } else if (chat.type == "GROUP") {
+        const updateChat = await prisma.chat.update({
+            where: {
+                id: parseInt(url[url.length-1]),
+            },
+            data: {
+                participants: {
+                    disconnect: { email: session.user.email },
                 },
             },
-        },
-    })
-  
+        })
+    }
+
     res.status(200).json({ success: "success" });
 }
