@@ -22,8 +22,6 @@ export default function Homepage(props) {
         setShowPopup(!showPopup);
     }
 
-    console.log(session);
-
     return (
         <div className={styles.wrapper}>
             {(showPopup)&&(<Popup><Button onClick={handleChangePopup} title="Cancel"/></Popup>)}
@@ -34,8 +32,8 @@ export default function Homepage(props) {
                 <div className={styles.main}>
                     <Header chatName={props.chat.name}/>
                     <Layout>
-                        <Chat/>
-                        <Sidemenu/>
+                        <Chat chat={props.chat} userId={props.userId}/>
+                        <Sidemenu chat={props.chat}/>
                     </Layout>
                 </div>
             </Layout>
@@ -47,30 +45,6 @@ export async function getServerSideProps(context) {
     const { id } = context.query;
     const session = await getServerSession(context.req, context.res, authOptions);
 
-    console.log("Session", JSON.stringify(session, null, 2))
-
-    const user = await prisma.user.findUnique({
-        where: { email: session.user.email },
-        include: { chats: true },
-    })
-
-    const chat = await prisma.chat.findUnique({
-        where: { id: parseInt(id) },
-        include: {
-            participants: {
-                select: {
-                    id: true,
-                    name: true,
-                },
-            },
-            messages: true,
-        },
-    })
-
-    if (!chat) {
-        return { notFound: true };
-    }
-
     if (!session) {
         return {
             redirect: {
@@ -80,11 +54,49 @@ export async function getServerSideProps(context) {
         }
     }
 
+    const user = await prisma.user.findUnique({
+        where: { email: session.user.email },
+        include: { chats: true },
+    })
+
+    const chat = await prisma.chat.findFirst({
+        where: { 
+            id: parseInt(id),
+            participants: {
+                some: {
+                    id: user.id,
+                },
+            },
+        },
+        include: {
+            participants: {
+                select: {
+                    id: true,
+                    name: true,
+                },
+            },
+            messages: {
+                include: {
+                    user: {
+                        select: {
+                            name: true,
+                        },
+                    },
+                },
+            },
+        },
+    })
+
+    if (!chat) {
+        return { notFound: true };
+    }
+
     return {
         props: {
             chats: user.chats,
-            chat: chat,
+            chat: JSON.parse(JSON.stringify(chat)),
             id: id,
+            userId: user.id,
         }
     }
 }

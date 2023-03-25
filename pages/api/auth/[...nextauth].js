@@ -30,7 +30,7 @@ export default NextAuth({
         const isValid = await bcrypt.compare(credentials.password, user.password)
 
         if (isValid) {
-          return {id: "aaaaaaaa", password: user.password, name: user.name, email: user.email};
+          return {name: user.name, email: user.email};
         }
         else
         {

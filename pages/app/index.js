@@ -15,7 +15,6 @@ export default function Homepage(props) {
 
     return (
         <div className={styles.wrapper}>
-            <Popup/>
             <Layout>
                 <Sidenav chats={props.chats}/>
                 <div className={styles.main}>
