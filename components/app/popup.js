@@ -5,22 +5,21 @@ import styles from './popup.module.css';
 import Button from './button';
 
 export default function Popup(props) {
-    const {data:session, status} = useSession();
-    const [popupState, setPopupState] = React.useState(0);
+    const [popupDisplay, setPopupDisplay] = React.useState(props.display);
 
-    switch (popupState) {
-        case 0:
+    switch (popupDisplay) {
+        case "add":
             return (
                 <div className={styles.pageCover}>
                     <div className={styles.container}>
                         <h1 className={styles.title}>Add a new chat</h1>
-                        <button className={styles.button} onClick={() => setPopupState(1)}>Create group</button>
-                        <button className={styles.button} onClick={() => setPopupState(2)}>Send friend request</button>
+                        <button className={styles.button} onClick={() => setPopupDisplay("addGroup")}>Create group</button>
+                        <button className={styles.button} onClick={() => setPopupDisplay("addDirect")}>Start direct chat</button>
                         {props.children}
                     </div>
                 </div>
             );
-        case 1:
+        case "addGroup":
             return (
                 <div className={styles.pageCover}>
                     <div className={styles.container}>
@@ -28,23 +27,40 @@ export default function Popup(props) {
                         <form action="/api/group" method="post">
                             <input name="name" type="text" placeholder="Group name"></input>
                             <div>
-                                <Button onClick={() => setPopupState(0)} title="Cancel"/>
+                                <Button onClick={() => setPopupDisplay("add")} title="Cancel"/>
                                 <Button type="submit" title="Create new group"/>
                             </div>
                         </form>
                     </div>
                 </div>
             );
-        case 2:
+        case "addDirect":
             return (
                 <div className={styles.pageCover}>
                     <div className={styles.container}>
-                        <h1 className={styles.title}>Send friend request</h1>
-                        <input type="text" placeholder="Username"></input>
-                        <div>
-                            <Button onClick={() => setPopupState(0)} title="Cancel"/>
-                            <Button title="Send friend request"/>
-                        </div>
+                        <h1 className={styles.title}>Start new direct chat</h1>
+                        <form action="/api/direct" method="post">
+                            <input name="email" type="email" placeholder="Email"></input>
+                            <div>
+                                <Button onClick={() => setPopupDisplay("add")} title="Cancel"/>
+                                <Button type="submit" title="Start direct chat"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )
+        case "invite":
+            return (
+                <div className={styles.pageCover}>
+                    <div className={styles.container}>
+                        <h1 className={styles.title}>Send invite</h1>
+                        <form action="/api/invite" method="post">
+                            <input name="email" type="email" placeholder="Email"></input>
+                            <div>
+                                {props.children}
+                                <Button type="submit" title="Send invite"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )
