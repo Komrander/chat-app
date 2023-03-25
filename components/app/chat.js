@@ -6,11 +6,29 @@ import Icon from './icon';
 import Profile from './profile';
 
 export default function Chat(props) {
-    const {data:session, status} = useSession();
     const [message, setMessage] = React.useState();
 
-    if (status === "loading") {
-        return "Loading or not authenticated..."
+    const currentDate = new Date();
+    const today = currentDate.setUTCHours(0,0,0,0);
+    const yesterday = currentDate.setDate(currentDate.getDate() -1);
+
+    function getTimeString(date) {
+        date = new Date(date);
+
+        const day = date.getDate().toString();
+        const month = (date.getMonth() + 1).toString();
+        const year = date.getFullYear().toString();
+
+        const hour = date.getHours().toString();
+        const minute = date.getMinutes().toString();
+        
+        if (today < date.getTime()) {
+            return ("today at " + hour + ":" + minute);
+        } else if (yesterday < date.getTime()) {
+            return ("yesterday at " + hour + ":" + minute);
+        } else {
+            return (day + "." + month + "." + year + " " + hour + ":" + minute);
+        }
     }
 
     return (
@@ -21,7 +39,7 @@ export default function Chat(props) {
                         (message.userId == props.userId)?(
                             <div key={message.id} className={styles.userMessage}>
                                 <div className={styles.userMessageContainer}>
-                                    <h1 className={styles.userMessageDate}>{message.date}</h1>
+                                    <h1 className={styles.userMessageDate}>{getTimeString(message.date)}</h1>
                                     <div className={styles.userMessageBody}>
                                         <p className={styles.userMessageText}>{message.content}</p>
                                     </div>
@@ -33,7 +51,7 @@ export default function Chat(props) {
                                 <div className={styles.responseMessageContainer}>
                                     <div className={styles.responseMessageHeader}>
                                         <h1 className={styles.responseMessageName}>{message.user.name}</h1>
-                                        <h1 className={styles.responseMessageDate}>{message.date}</h1>
+                                        <h1 className={styles.responseMessageDate}>{getTimeString(message.date)}</h1>
                                     </div>
                                     <div className={styles.responseMessageBody}>
                                         <p className={styles.responseMessageText}>{message.content}</p>
