@@ -1,10 +1,27 @@
-import { useSession } from "next-auth/react";
 import styles from './sidemenu.module.css';
+import Router from "next/router";
 
 import Button from './button';
 import Profile from './profile';
 
 export default function Sidemenu(props) {
+    async function handleLeave(e) {
+        e.preventDefault();
+        const res = await fetch("/api/leave", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const result = await res.json();
+        console.log(result);
+        if (res.status == 200) {
+            Router.push('/app');
+        } else {
+            alert("Error");
+        }
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.titleContainer}>
@@ -20,7 +37,7 @@ export default function Sidemenu(props) {
             </div>
             <div className={styles.buttonContainer}>
                 {props.children}
-                <form action="/api/leave" method="post">
+                <form onSubmit={handleLeave}>
                     <Button type="submit" title="Leave group" style="negative"/>
                 </form>
             </div>
