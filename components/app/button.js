@@ -5,7 +5,8 @@ export default function Button(props) {
     const [isDark, setIsDark] = React.useState(false);
 
     return (
-        <button className={(props.style == "negative") ? styles.buttonNegative : styles.button}
+        <button
+        className={(props.style == "negative")?(styles.negative):(props.style == "grey")?(styles.grey):(styles.button)}
         onMouseEnter={() => setIsDark(true)}
         onMouseLeave={() => setIsDark(false)}
         onClick={props.onClick}
