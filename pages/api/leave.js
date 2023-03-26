@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
-    const body = req.body;
     const session = await getServerSession(req, res, authOptions);
     let url = req.headers.referer.split("/");
 

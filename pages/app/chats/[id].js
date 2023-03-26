@@ -1,8 +1,8 @@
-import { useSession } from "next-auth/react";
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 import { getServerSession } from "next-auth/next";
 import React from 'react';
 import prisma from "/lib/prismadb";
+import Router from "next/router"
 
 import styles from '/styles/App.module.css';
 import Layout from "/components/app/layout";
@@ -15,16 +15,18 @@ import Button from "/components/app/button";
 
 export default function Homepage(props) {
     const [showPopup, setShowPopup] = React.useState("none");
+    const dynamicRoute = Router.useRouter().asPath;
+    React.useEffect(() => setShowPopup("none"), [dynamicRoute]);
 
     return (
         <div className={styles.wrapper}>
-            {(showPopup != "none")&&(<Popup display={showPopup}><Button onClick={() => setShowPopup("none")} title="Cancel"/></Popup>)}
+            {(showPopup != "none")&&(<Popup display={showPopup}><Button style="grey" onClick={() => setShowPopup("none")} title="Cancel"/></Popup>)}
             <Layout>
                 <Sidenav chats={props.chats} id={props.id}>
                     <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
                 <div className={styles.main}>
-                    <Header chatName={props.chat.name}/>
+                    <Header chat={props.chat}/>
                     <Layout>
                         <Chat chat={props.chat} userId={props.userId}/>
                         <Sidemenu chat={props.chat}>
@@ -52,7 +54,29 @@ export async function getServerSideProps(context) {
 
     const user = await prisma.user.findUnique({
         where: { email: session.user.email },
-        include: { chats: true },
+        include: {
+            chats: {
+                include: {
+                    messages: {
+                        orderBy: {
+                            date: "desc",
+                        },
+                        take: 1,
+                    },
+                    participants: {
+                        where: {
+                            NOT: {
+                                email: session.user.email,
+                            },
+                        },
+                        select: {
+                            name: true,
+                        },
+                        take: 1,
+                    },
+                },
+            },
+        },
     })
 
     const chat = await prisma.chat.findFirst({
@@ -89,7 +113,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            chats: user.chats,
+            chats: JSON.parse(JSON.stringify(user.chats)),
             chat: JSON.parse(JSON.stringify(chat)),
             id: id,
             userId: user.id,
