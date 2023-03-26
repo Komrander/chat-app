@@ -29,4 +29,36 @@
 
 .button {
     height: 48px;
+    background-color: transparent;
+    border: 1px solid #707975;
+    border-radius: 12px;
+    color: #191C1B;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(230, 230, 230);
+    border-color: #535a57;
+    color: #000000;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    background-color: #E0E0E0;
+    border: none;
+    border-radius: 28px;
+    padding: 0 4px 0 18px;
+    height: 48px;
+    width: 100%;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
 }

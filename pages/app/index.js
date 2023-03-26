@@ -19,16 +19,13 @@ export default function Homepage(props) {
 
     return (
         <div className={styles.wrapper}>
-            {(showPopup != "none")&&(<Popup display={showPopup}><Button onClick={() => setShowPopup("none")} title="Cancel"/></Popup>)}
+            {(showPopup != "none")&&(<Popup display={showPopup}><Button style="grey" onClick={() => setShowPopup("none")} title="Cancel"/></Popup>)}
             <Layout>
                 <Sidenav chats={props.chats} id={props.id}>
                     <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
                 <div className={styles.main}>
-                    <Header chatName={"Welcome, " + ((status === "loading")?("loading"):(session.user.name)) + "!"}/>
-                    <Layout>
-
-                    </Layout>
+                    <Header chat={props.chat}/>
                 </div>
             </Layout>
         </div>
@@ -49,12 +46,34 @@ export async function getServerSideProps(context) {
 
     const user = await prisma.user.findUnique({
         where: { email: session.user.email },
-        include: { chats: true },
+        include: {
+            chats: {
+                include: {
+                    messages: {
+                        orderBy: {
+                            date: "desc",
+                        },
+                        take: 1,
+                    },
+                    participants: {
+                        where: {
+                            NOT: {
+                                email: session.user.email,
+                            },
+                        },
+                        select: {
+                            name: true,
+                        },
+                        take: 1,
+                    },
+                },
+            },
+        },
     })
 
     return {
         props: {
-            chats: user.chats,
+            chats: JSON.parse(JSON.stringify(user.chats)),
             userId: user.id,
         }
     }
