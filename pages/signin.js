@@ -10,7 +10,7 @@ export default function SignIn() {
     const username = e.target.username.value;
     const password = e.target.password.value;
     
-    signIn("credentials", { username: username, password: password, callbackUrl: '/app' });
+    signIn("credentials", { username: username, password: password, callbackUrl: "/app" });
   }
 
   return (
