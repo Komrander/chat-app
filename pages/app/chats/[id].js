@@ -12,6 +12,7 @@ import Sidemenu from "/components/app/sidemenu";
 import Chat from "/components/app/chat";
 import Popup from "/components/app/popup";
 import Button from "/components/app/button";
+import Icon from '/components/app/icon';
 
 export default function Homepage(props) {
     const [showPopup, setShowPopup] = React.useState("none");
@@ -26,10 +27,12 @@ export default function Homepage(props) {
                     <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
                 <div className={styles.main}>
-                    <Header chat={props.chat}/>
+                    <Header chat={props.chat} chatName={props.chatName}>
+                        <Icon onClick={() => setShowPopup("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
+                    </Header>
                     <Layout>
-                        <Chat chat={props.chat} userId={props.userId}/>
-                        <Sidemenu chat={props.chat}>
+                        <Chat chat={props.chat} chatName={props.chatName} userId={props.userId}/>
+                        <Sidemenu chat={props.chat} chatName={props.chatName}>
                             <Button onClick={() => setShowPopup("invite")} title="Invite user"/>
                         </Sidemenu>
                     </Layout>
@@ -93,6 +96,7 @@ export async function getServerSideProps(context) {
                 select: {
                     id: true,
                     name: true,
+                    email: true,
                 },
             },
             messages: {
@@ -111,12 +115,26 @@ export async function getServerSideProps(context) {
         return { notFound: true };
     }
 
+    
+    var chatName;
+    if (chat.type == "DIRECT") {
+        if (chat.participants[0].email == session.user.email) {
+            chatName = chat.participants[1].name;
+        } else {
+            chatName = chat.participants[0].name;
+        }
+    } else {
+        chatName = chat.name;
+    }
+
     return {
         props: {
             chats: JSON.parse(JSON.stringify(user.chats)),
             chat: JSON.parse(JSON.stringify(chat)),
             id: id,
             userId: user.id,
+            username: user.name,
+            chatName: chatName,
         }
     }
 }

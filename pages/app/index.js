@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 import { getServerSession } from "next-auth/next";
 import React from 'react';
@@ -8,13 +7,11 @@ import styles from '/styles/App.module.css';
 import Layout from "/components/app/layout";
 import Header from '/components/app/header';
 import Sidenav from "/components/app/sidenav";
-import Sidemenu from "/components/app/sidemenu";
-import Chat from "/components/app/chat";
 import Popup from "/components/app/popup";
 import Button from "/components/app/button";
+import Icon from "/components/app/icon";
 
 export default function Homepage(props) {
-    const {data: session ,status} = useSession({required: true,});
     const [showPopup, setShowPopup] = React.useState("none");
 
     return (
@@ -25,7 +22,15 @@ export default function Homepage(props) {
                     <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
                 <div className={styles.main}>
-                    <Header chat={props.chat}/>
+                    <Header chat={props.chat}>
+                        <Icon onClick={() => setShowPopup("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
+                    </Header>
+                    <h1 className={styles.welcomeTitle}>Welcome, {props.username}!</h1>
+                    <p>
+                        Start a new chat with the add button or select an existing chat on the left panel.
+                        <br/><br/>
+                        Use the settings icon to logout or change your name and password.
+                    </p>
                 </div>
             </Layout>
         </div>
@@ -75,6 +80,7 @@ export async function getServerSideProps(context) {
         props: {
             chats: JSON.parse(JSON.stringify(user.chats)),
             userId: user.id,
+            username: user.name,
         }
     }
 }
