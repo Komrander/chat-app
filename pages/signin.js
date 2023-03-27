@@ -1,8 +1,8 @@
 import { signIn } from "next-auth/react";
-import styles from '/styles/form.module.css';
+import styles from "/styles/form.module.css";
 
-import Button from '/components/app/button';
-import Link from 'next/link'
+import Button from "/components/app/button";
+import Link from "next/link";
 
 export default function SignIn() {
   async function handleSignIn(e) {
