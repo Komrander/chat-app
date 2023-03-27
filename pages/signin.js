@@ -23,7 +23,7 @@ export default function SignIn() {
           <Button type="submit" title="Login"/>
         </form>
         <div className={styles.textContainer}>
-          <h1 className={styles.text}>Don't have an account yet? </h1>
+          <h1 className={styles.text}>Don&apos;t have an account yet? </h1>
           <Link className={styles.link} href="/register">Sign up</Link>
         </div>
       </div>
