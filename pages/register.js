@@ -2,6 +2,7 @@ import { signIn } from "next-auth/react";
 import styles from '/styles/form.module.css';
 
 import Button from '/components/app/button';
+import Link from 'next/link'
 
 export default function Form() {
   async function handleRegister(e) {
@@ -36,7 +37,7 @@ export default function Form() {
         </form>
         <div className={styles.textContainer}>
           <h1 className={styles.text}>Already have an account? </h1>
-          <a className={styles.link} href="/signin">Login</a>
+          <Link className={styles.link} href="/signin">Login</Link>
         </div>
       </div>
     </div>
