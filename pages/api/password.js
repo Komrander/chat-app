@@ -1,6 +1,6 @@
 import prisma from "../../lib/prismadb";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
+import { authOptions } from '/pages/api/auth/[...nextauth]';
 var bcrypt = require('bcrypt');
 
 export default async function handler(req, res) {
