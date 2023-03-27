@@ -2,6 +2,7 @@ import styles from './sidenav.module.css';
 import Link from 'next/link';
 
 import Profile from './profile';
+import Link from 'next/link';
 
 export default function Sidenav(props) {
     const currentTime = new Date().getTime();
@@ -58,7 +59,7 @@ export default function Sidenav(props) {
     return (
         <div className={styles.container}>
             <div className={styles.titleContainer}>
-                <a className={styles.title} href="/app">Chats</a>
+                <Link className={styles.title} href="/app">Chats</Link>
                 {props.children}
             </div>
             {
