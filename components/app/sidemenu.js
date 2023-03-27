@@ -18,7 +18,7 @@ export default function Sidemenu(props) {
         if (res.status == 200) {
             Router.push('/app');
         } else {
-            alert("Error");
+            alert(result.data);
         }
     }
 
@@ -31,24 +31,33 @@ export default function Sidemenu(props) {
                 <h1 className={styles.subtitle}>About</h1>
             </div>
             <div className={styles.infoContainer}>
-                <Profile name={props.chat.name} style="large"/>
-                <h1 className={styles.infoTitle}>{props.chat.name}</h1>
-                <p className={styles.infoSubtitle}>{props.chat.description}</p>
+                <Profile name={props.chatName} style="large"/>
+                <h1 className={styles.infoTitle}>{props.chatName}</h1>
             </div>
-            <div className={styles.buttonContainer}>
-                {props.children}
-                <form onSubmit={handleLeave}>
-                    <Button type="submit" title="Leave group" style="negative"/>
-                </form>
-            </div>
-            <div className={styles.titleContainer}>
-                <h1 className={styles.subtitle}>Members - {props.chat.participants.length}</h1>
-            </div>
-            {
-                props.chat.participants.map(user =>
-                    <Profile key={user.id} style="full" name={user.name}></Profile>
-                )
-            }
+            {(props.chat.type == "GROUP")?(
+                <div>
+                    <div className={styles.buttonContainer}>
+                        {props.children}
+                        <form onSubmit={handleLeave}>
+                            <Button type="submit" title="Leave group" style="negative"/>
+                        </form>
+                    </div>
+                    <div className={styles.titleContainer}>
+                        <h1 className={styles.subtitle}>Members - {props.chat.participants.length}</h1>
+                    </div>
+                    {
+                        props.chat.participants.map(user =>
+                            <Profile key={user.id} style="full" name={user.name}></Profile>
+                        )
+                    }
+                </div>
+            ):(
+                <div className={styles.buttonContainer}>
+                    <form onSubmit={handleLeave}>
+                        <Button type="submit" title="Delete chat" style="negative"/>
+                    </form>
+                </div>
+            )}
         </div>
     )
 }

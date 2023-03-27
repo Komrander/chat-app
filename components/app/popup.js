@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './popup.module.css';
 import Router from "next/router";
+import { signOut } from "next-auth/react";
 
 import Button from './button';
 
@@ -18,11 +19,10 @@ export default function Popup(props) {
             body: JSON.stringify({ name: name }),
         });
         const result = await res.json();
-        console.log(result);
         if (res.status == 200) {
             Router.push('/app/chats/'+result.id);
         } else {
-            alert("Error");
+            alert(result.data);
         }
     }
 
@@ -37,11 +37,10 @@ export default function Popup(props) {
             body: JSON.stringify({ email: email }),
         });
         const result = await res.json();
-        console.log(result);
         if (res.status == 200) {
             Router.push('/app/chats/'+result.id);
         } else {
-            alert("Error");
+            alert(result.data);
         }
     }
 
@@ -56,11 +55,47 @@ export default function Popup(props) {
             body: JSON.stringify({ email: email }),
         });
         const result = await res.json();
-        console.log(result);
         if (res.status == 200) {
             Router.reload(window.location.pathname)
         } else {
-            alert("Error");
+            alert(result.data);
+        }
+    }
+
+    async function handleChangeName(e) {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const res = await fetch("/api/name", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name: name }),
+        });
+        const result = await res.json();
+        if (res.status == 200) {
+            Router.reload(window.location.pathname)
+        } else {
+            alert(result.data);
+        }
+    }
+
+    async function handleChangePassword(e) {
+        e.preventDefault();
+        const oldPassword = e.target.oldPassword.value;
+        const newPassword = e.target.newPassword.value;
+        const res = await fetch("/api/password", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ oldPassword: oldPassword, newPassword: newPassword }),
+        });
+        const result = await res.json();
+        if (res.status == 200) {
+            Router.reload(window.location.pathname)
+        } else {
+            alert(result.data);
         }
     }
 
@@ -120,6 +155,49 @@ export default function Popup(props) {
                         </form>
                     </div>
                 </div>
+            )
+        case "changeName":
+            return (
+                <div className={styles.pageCover}>
+                    <div className={styles.container}>
+                        <h1 className={styles.title}>Change username</h1>
+                        <form onSubmit={handleChangeName}>
+                            <input className={styles.input} name="name" type="text" placeholder="New username"></input>
+                            <div className={styles.buttonContainer}>
+                                <Button style="grey" onClick={() => setPopupDisplay("settings")} title="Cancel"/>
+                                <Button type="submit" title="Change username"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            );
+        case "changePassword":
+            return (
+                <div className={styles.pageCover}>
+                    <div className={styles.container}>
+                        <h1 className={styles.title}>Change password</h1>
+                        <form onSubmit={handleChangePassword}>
+                            <input className={styles.input} name="oldPassword" type="password" placeholder="Old password"></input>
+                            <input className={styles.input} name="newPassword" type="password" placeholder="New password"></input>
+                            <div className={styles.buttonContainer}>
+                                <Button style="grey" onClick={() => setPopupDisplay("settings")} title="Cancel"/>
+                                <Button type="submit" title="Change password"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            );
+        case "settings":
+            return (
+                <div className={styles.pageCover}>
+                <div className={styles.container}>
+                    <h1 className={styles.title}>Settings</h1>
+                    <button className={styles.button} onClick={() => setPopupDisplay("changeName")}>Change username</button>
+                    <button className={styles.button} onClick={() => setPopupDisplay("changePassword")}>Change password</button>
+                    <Button style="negative" onClick={() => signOut()} title="Logout"/>
+                    {props.children}
+                </div>
+            </div>
             )
         default:
             return;

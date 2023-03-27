@@ -9,9 +9,25 @@ export default async function handler(req, res) {
     const user = await prisma.user.findUnique({
         where: { email: body.email },
     })
+
+    const existingChat = await prisma.chat.findFirst({
+        where: {
+            type: "DIRECT",
+            participants: {
+                some: {
+                    email: session.user.email,
+                    email: body.email,
+                },
+            },
+        },
+    })
   
-    if (!user || !session ) {
-      return res.status(400).json({ data: 'Missing data' });
+    if (!session) {
+        return res.status(400).json({ data: 'Missing data' });
+    } else if (existingChat) {
+        return res.status(400).json({ data: 'Chat already exist' })
+    } else if (!user) {
+        return res.status(400).json({ data: 'User doesnt exist' })
     }
 
     const chat = await prisma.chat.create({
