@@ -1,5 +1,4 @@
 import styles from './sidenav.module.css';
-import Link from 'next/link';
 
 import Profile from './profile';
 import Link from 'next/link';
