@@ -18,7 +18,7 @@ export default function Chat(props) {
         const year = date.getFullYear().toString();
 
         const hour = date.getHours().toString();
-        const minute = date.getMinutes().toString();
+        const minute = (date.getMinutes()<10?'0':'') + date.getMinutes().toString();
         
         if (today < date.getTime()) {
             return ("today at " + hour + ":" + minute);
@@ -32,6 +32,7 @@ export default function Chat(props) {
     async function handleSendMessage(e) {
         e.preventDefault();
         const message = e.target.message.value;
+        e.target.message.value = "";
         const res = await fetch("/api/message", {
             method: "POST",
             headers: {
@@ -44,7 +45,7 @@ export default function Chat(props) {
         if (res.status == 200) {
             Router.replace(window.location.pathname);
         } else {
-            alert("Error");
+            alert(result.data);
         }
     }
 
@@ -83,7 +84,7 @@ export default function Chat(props) {
                 <textarea
                 name="message"
                 className={styles.textarea}
-                placeholder={"Type a message to " + props.chat.name + "..."}/>
+                placeholder={"Type a message to " + props.chatName + "..."}/>
                 <Icon type="submit" image="/icons/send.png" imageDark="/icons/sendDark.png"/>
             </form>
         </div>

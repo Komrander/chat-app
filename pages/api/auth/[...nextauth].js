@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "../../../lib/prismadb";
+import prisma from "/lib/prismadb";
 var bcrypt = require('bcrypt');
 
 export default NextAuth({
@@ -30,7 +30,7 @@ export default NextAuth({
         const isValid = await bcrypt.compare(credentials.password, user.password)
 
         if (isValid) {
-          return {name: user.name, email: user.email};
+          return {email: user.email};
         }
         else
         {
@@ -43,4 +43,7 @@ export default NextAuth({
   session: {
     strategy:"jwt",
   },
+  pages: {
+    signIn: '/signin',
+  }
 })

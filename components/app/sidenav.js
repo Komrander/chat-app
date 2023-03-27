@@ -1,7 +1,6 @@
 import styles from './sidenav.module.css';
 import Link from 'next/link';
 
-import Button from './button';
 import Profile from './profile';
 
 export default function Sidenav(props) {
@@ -13,6 +12,7 @@ export default function Sidenav(props) {
         const minutes = Math.floor(time/60000);
         const hours = Math.floor(minutes/60);
         const days = Math.floor(hours/24);
+        const weeks = Math.floor(days/7);
         const months = Math.floor(days/30);
         const years = Math.floor(days/365);
         
@@ -27,6 +27,12 @@ export default function Sidenav(props) {
                 return(months + " month ago")
             } else {
                 return(months + " months ago");
+            }
+        } else if (weeks >= 1) {
+            if (weeks == 1) {
+                return(weeks + " week ago")
+            } else {
+                return(weeks + " weeks ago");
             }
         } else if (days >= 1) {
             if (days == 1) {
@@ -52,7 +58,7 @@ export default function Sidenav(props) {
     return (
         <div className={styles.container}>
             <div className={styles.titleContainer}>
-                <h1 className={styles.title}>Chats</h1>
+                <a className={styles.title} href="/app">Chats</a>
                 {props.children}
             </div>
             {

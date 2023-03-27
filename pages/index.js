@@ -1,4 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
+import styles from '/styles/Home.module.css';
 
 export default function LandingPage() {
     const {data:session, status} = useSession();
@@ -12,6 +13,12 @@ export default function LandingPage() {
         )
     }
     return (
-        <button onClick={() => signIn(undefined, {callbackUrl: '/app'})}>Sign in</button>
+        <div className={styles.wrapper}>
+            <div className={styles.header}>
+                <button onClick={() => signIn()}>Sign in</button>
+            </div>
+            <div className={styles.container}>
+            </div>
+        </div>
     )
 }
