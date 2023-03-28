@@ -1,6 +1,8 @@
 import styles from './button.module.css';
 import React from 'react';
 
+import Image from "next/image";
+
 export default function Button(props) {
     const [isDark, setIsDark] = React.useState(false);
 
@@ -12,7 +14,7 @@ export default function Button(props) {
         onClick={props.onClick}
         type={props.type}>
             {(props.image && props.imageDark) &&
-            <img className={styles.image} src={(isDark) ? (props.imageDark) : (props.image)}/>
+            <Image alt="" className={styles.image} src={(isDark) ? (props.imageDark) : (props.image)}/>
             }
             {props.title}
         </button>
