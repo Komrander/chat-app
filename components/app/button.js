@@ -14,7 +14,7 @@ export default function Button(props) {
         onClick={props.onClick}
         type={props.type}>
             {(props.image && props.imageDark) &&
-            <Image alt="" className={styles.image} src={(isDark) ? (props.imageDark) : (props.image)}/>
+            <Image width="12" height="12" alt="" className={styles.image} src={(isDark) ? (props.imageDark) : (props.image)}/>
             }
             {props.title}
         </button>
