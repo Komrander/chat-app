@@ -5,7 +5,8 @@ import { authOptions } from '/pages/api/auth/[...nextauth]';
 export default async function handler(req, res) {
     const body = req.body;
     const session = await getServerSession(req, res, authOptions);
-    let url = req.headers.referer.split("/");
+    const url = req.headers.referer.split("/");
+    const chatId = parseInt(url[url.length-1]);
 
     const user = await prisma.user.findUnique({
         where: {
@@ -15,7 +16,7 @@ export default async function handler(req, res) {
 
     const chat = await prisma.chat.findFirst({
         where: {
-            id: parseInt(url[url.length-1]),
+            id: chatId,
             participants: {
                 some: {
                     id: user.id,
@@ -36,7 +37,7 @@ export default async function handler(req, res) {
 
     const update = await prisma.chat.update({
         where: {
-            id: parseInt(url[url.length-1]),
+            id: chatId,
         },
         data: {
             participants: { 

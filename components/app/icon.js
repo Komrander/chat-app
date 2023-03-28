@@ -12,7 +12,7 @@ export default function Icon(props) {
         onMouseEnter={() => setIsDark(true)}
         onMouseLeave={() => setIsDark(false)}
         type={props.type}>
-            <Image alt="" className={styles.image} src={(isDark) ? (props.imageDark) : (props.image)}/>
+            <Image width="20" height="20" alt="" className={styles.image} src={(isDark) ? (props.imageDark) : (props.image)}/>
         </button>
     )
 }
