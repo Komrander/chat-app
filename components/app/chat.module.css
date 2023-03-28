@@ -1,7 +1,6 @@
 .container {
     flex-grow: 1;
     background-color: #FBFDFA;
-    padding: 0 24px 24px 24px;
     display: flex;
     flex-direction: column;
 }
@@ -10,11 +9,14 @@
 
 .messageContainer {
     flex-grow: 1;
-    margin-bottom: 12px;
     display: flex;
-    justify-content: flex-end;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    margin-bottom: 12px;
     min-width: 512px;
+    height: 0px;
+    overflow-y: scroll;
+    margin-left: 24px;
+    padding-right: 8px;
 }
 
 /* Response messages */
@@ -109,6 +111,7 @@
     max-height: 50%;
     padding: 0 4px 0 18px;
     display: flex;
+    margin: 0 24px 24px 24px;
 }
 
 .textarea {

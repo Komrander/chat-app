@@ -5,7 +5,6 @@ import prisma from "/lib/prismadb";
 import Router from "next/router"
 
 import styles from '/styles/App.module.css';
-import Layout from "/components/app/layout";
 import Header from '/components/app/header';
 import Sidenav from "/components/app/sidenav";
 import Sidemenu from "/components/app/sidemenu";
@@ -22,7 +21,7 @@ export default function Homepage(props) {
     return (
         <div className={styles.wrapper}>
             {(showPopup != "none")&&(<Popup display={showPopup}><Button style="grey" onClick={() => setShowPopup("none")} title="Cancel"/></Popup>)}
-            <Layout>
+            <div className={styles.container}>
                 <Sidenav chats={props.chats} id={props.id}>
                     <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
@@ -30,14 +29,14 @@ export default function Homepage(props) {
                     <Header chat={props.chat} chatName={props.chatName}>
                         <Icon onClick={() => setShowPopup("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
                     </Header>
-                    <Layout>
+                    <div className={styles.chatContainer}>
                         <Chat chat={props.chat} chatName={props.chatName} userId={props.userId}/>
                         <Sidemenu chat={props.chat} chatName={props.chatName}>
                             <Button onClick={() => setShowPopup("invite")} title="Invite user"/>
                         </Sidemenu>
-                    </Layout>
+                    </div>
                 </div>
-            </Layout>
+            </div>
         </div>
     )
 }
@@ -100,6 +99,9 @@ export async function getServerSideProps(context) {
                 },
             },
             messages: {
+                orderBy: {
+                    date: "desc",
+                },
                 include: {
                     user: {
                         select: {
