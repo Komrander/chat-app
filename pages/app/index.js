@@ -4,7 +4,6 @@ import React from 'react';
 import prisma from "/lib/prismadb";
 
 import styles from '/styles/App.module.css';
-import Layout from "/components/app/layout";
 import Header from '/components/app/header';
 import Sidenav from "/components/app/sidenav";
 import Popup from "/components/app/popup";
@@ -17,7 +16,7 @@ export default function Homepage(props) {
     return (
         <div className={styles.wrapper}>
             {(showPopup != "none")&&(<Popup display={showPopup}><Button style="grey" onClick={() => setShowPopup("none")} title="Cancel"/></Popup>)}
-            <Layout>
+            <div className={styles.container}>
                 <Sidenav chats={props.chats} id={props.id}>
                     <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
@@ -32,7 +31,7 @@ export default function Homepage(props) {
                         Use the settings icon to logout or change your name and password.
                     </p>
                 </div>
-            </Layout>
+            </div>
         </div>
     )
 }
