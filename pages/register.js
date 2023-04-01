@@ -19,7 +19,7 @@ export default function Form() {
     });
     const result = await res.json();
     if (res.status == 200) {
-      signIn("credentials", { username: email, password: password, callbackUrl: '/app' })
+      signIn("credentials", { email: email, password: password, callbackUrl: '/app' })
     } else {
         alert(result.data);
     }
