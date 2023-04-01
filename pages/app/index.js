@@ -25,7 +25,7 @@ export default function Homepage(props) {
                         <Icon onClick={() => setShowPopup("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
                     </Header>
                     <h1 className={styles.welcomeTitle}>Welcome, {props.username}!</h1>
-                    <p>
+                    <p className={styles.welcomeText}>
                         Start a new chat with the add button or select an existing chat on the left panel.
                         <br/><br/>
                         Use the settings icon to logout or change your name and password.
