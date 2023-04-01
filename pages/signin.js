@@ -7,10 +7,10 @@ import Link from "next/link";
 export default function SignIn() {
   async function handleSignIn(e) {
     e.preventDefault();
-    const username = e.target.username.value;
+    const email = e.target.email.value;
     const password = e.target.password.value;
     
-    signIn("credentials", { username: username, password: password, callbackUrl: "/app" });
+    signIn("credentials", { email: email, password: password, callbackUrl: "/app" });
   }
 
   return (
@@ -18,7 +18,7 @@ export default function SignIn() {
       <div className={styles.container}>
         <h1 className={styles.title}>Welcome back!</h1>
         <form className={styles.formContainer} onSubmit={handleSignIn}>
-          <input className={styles.input} name="username" type="email" placeholder="Email"/>
+          <input className={styles.input} name="email" type="email" placeholder="Email"/>
           <input className={styles.input} name="password" type="password" placeholder="Password"/>
           <Button type="submit" title="Login"/>
         </form>

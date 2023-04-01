@@ -13,7 +13,7 @@ model User {
   name     String
   password String    @db.Text
   messages Message[]
-  chats    Chat[]    @relation("ChatToUser")
+  chats    Chat[]
 }
 
 model Chat {
@@ -21,23 +21,21 @@ model Chat {
   name         String
   type         ChatType
   messages     Message[]
-  participants User[]    @relation("ChatToUser")
-}
-
-model Message {
-  id      Int      @id @default(autoincrement())
-  content String   @db.Text
-  date    DateTime @default(now())
-  chatId  Int
-  userId  Int
-  chat    Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
-  user    User     @relation(fields: [userId], references: [id])
-
-  @@index([chatId], map: "Message_chatId_fkey")
-  @@index([userId], map: "Message_userId_fkey")
+  participants User[]
 }
 
 enum ChatType {
   GROUP
   DIRECT
+}
+
+
+model Message {
+  id            Int         @id @default(autoincrement())
+  content       String      @db.Text
+  date          DateTime    @default(now())
+  chat          Chat        @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  chatId        Int
+  user          User        @relation(fields: [userId], references: [id])
+  userId        Int
 }
