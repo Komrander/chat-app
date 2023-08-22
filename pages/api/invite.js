@@ -33,8 +33,6 @@ export default async function handler(req, res) {
   
     if (!body.email || !session || !chat || !invitedUser || chat.type != "GROUP" ) {
       return res.status(400).json({ data: 'Missing data' });
-    } else if (user.email == invitedUser.email)
-        return res.status(400).json({ data: 'Cannot invite self' })
     }
 
     const update = await prisma.chat.update({
