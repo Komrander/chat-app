@@ -10,6 +10,10 @@ export default async function handler(req, res) {
         where: { email: body.email },
     })
 
+    const currentUser = await prisma.user.findUnique({
+        where: { email: session.user.email },
+    })
+
     const existingChat = await prisma.chat.findFirst({
         where: {
             type: "DIRECT",
@@ -28,7 +32,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ data: 'Chat already exist' })
     } else if (!user) {
         return res.status(400).json({ data: 'User doesnt exist' })
-    } else if (user.email == session.user.email)
+    } else if (user.email == currentUser.email)
         return res.status(400).json({ data: 'Cannot message self' })
     }
 
