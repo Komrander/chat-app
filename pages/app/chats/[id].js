@@ -1,6 +1,6 @@
 import { authOptions } from '/pages/api/auth/[...nextauth]';
 import { getServerSession } from "next-auth/next";
-import React from 'react';
+import React, {useState} from 'react';
 import prisma from "/lib/prismadb";
 import Router from "next/router"
 
@@ -14,9 +14,36 @@ import Button from "/components/app/button";
 import Icon from '/components/app/icon';
 
 export default function Homepage(props) {
-    const [showPopup, setShowPopup] = React.useState("none");
+    const [chat, setChat] = useState(props.chat);
+    const [showPopup, setShowPopup] = useState("none");
     const dynamicRoute = Router.useRouter().asPath;
     React.useEffect(() => setShowPopup("none"), [dynamicRoute]);
+
+    React.useEffect(() => {
+        const interval = setInterval(async ()=>{
+            try {
+                const response = await fetch("/api/chat", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: props.id }),
+                });
+
+                const chatData = await response.json();
+                
+                if (response.status != 200) {
+                    clearInterval(interval);
+                } else {
+                    console.log(chatData)
+                    setChat(chatData);
+                }
+            } catch (err) {
+                console.log("Error while fetching data: "+err);
+                clearInterval(interval);
+            }
+        },5000)
+    }, [props.id])
 
     return (
         <div className={styles.wrapper}>
@@ -26,12 +53,12 @@ export default function Homepage(props) {
                     <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
                 <div className={styles.main}>
-                    <Header chat={props.chat} chatName={props.chatName}>
+                    <Header chat={chat} chatName={props.chatName}>
                         <Icon onClick={() => setShowPopup("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
                     </Header>
                     <div className={styles.chatContainer}>
-                        <Chat chat={props.chat} chatName={props.chatName} userId={props.userId}/>
-                        <Sidemenu chat={props.chat} chatName={props.chatName}>
+                        <Chat chat={chat} chatName={props.chatName} userId={props.userId}/>
+                        <Sidemenu chat={chat} chatName={props.chatName}>
                             <Button onClick={() => setShowPopup("invite")} title="Invite user"/>
                         </Sidemenu>
                     </div>
