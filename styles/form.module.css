@@ -3,8 +3,24 @@
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 64px;
+    background-color: #294A5E;
+}
+  
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1168px;
+    padding: 0 20px 0 20px;
 }
 
 .container {
@@ -13,6 +29,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 180px auto auto auto;
     padding: 32px 40px;
     gap: 26px;
 }
@@ -76,6 +93,7 @@
     .container {
         width: 100%;
         height: 100%;
+        margin: 0;
     }
 
     .title {
@@ -84,5 +102,11 @@
 
     .formContainer {
         gap: 0;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        width: 30%;
     }
 }

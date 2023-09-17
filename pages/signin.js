@@ -2,6 +2,7 @@ import styles from "/styles/form.module.css";
 
 import {handleSignIn} from "../services/apiCalls";
 
+import Image from 'next/image';
 import Button from "/components/button";
 import Link from "next/link";
 
@@ -9,6 +10,13 @@ export default function SignIn() {
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.header}>
+          <div className={styles.nav}>
+              <Link href="/">
+                <Image width="166" height="40" alt="logo" src="/logo.svg"/>
+              </Link>
+          </div>
+      </div>
       <div className={styles.container}>
         <h1 className={styles.title}>Welcome back!</h1>
         <form className={styles.formContainer} onSubmit={(e) => {e.preventDefault(), handleSignIn(e.target.email.value, e.target.password.value, "/app")}}>
