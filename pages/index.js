@@ -3,7 +3,7 @@ import styles from '/styles/Home.module.css';
 import Router from "next/router";
 
 import Image from 'next/image';
-import Button from '/components/app/button';
+import Button from '/components/button';
 
 export default function LandingPage() {
     const {data:session, status} = useSession();
@@ -19,13 +19,13 @@ export default function LandingPage() {
             <div className={styles.main}>
                 <div className={styles.container}>
                     <div className={styles.registerContainer}>
-                        <h1 className={styles.registerTitle}>Create an account on WaveChat</h1>
+                        <h1 className={styles.registerTitle}>Create an account on<br/> WaveChat</h1>
                         <h1 className={styles.registerText}>Chat with your friends, family and coworkers</h1>
                         {(status=="authenticated")
                         ?(<Button title="Open the application" onClick={() => Router.push('/app')}>Sign in</Button>)
                         :(<Button title="Create an account" onClick={() => Router.push('/register')}>Sign in</Button>)}
                     </div>
-                    <Image width="570" height="400" alt="" src="/showcase.png"/>
+                    <Image className={styles.showcase} width="570" height="400" alt="" src="/showcase.png"/>
                 </div>
                 <div className={styles.container}>
                     <div className={styles.card}>

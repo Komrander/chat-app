@@ -4,11 +4,11 @@ import React from 'react';
 import prisma from "/lib/prismadb";
 
 import styles from '/styles/App.module.css';
-import Header from '/components/app/header';
-import Sidenav from "/components/app/sidenav";
-import Popup from "/components/app/popup";
-import Button from "/components/app/button";
-import Icon from "/components/app/icon";
+import Header from '/components/header';
+import Sidenav from "/components/sidenav";
+import Popup from "/components/popup";
+import Button from "/components/button";
+import Icon from "/components/icon";
 
 export default function Homepage(props) {
     const [showPopup, setShowPopup] = React.useState("none");

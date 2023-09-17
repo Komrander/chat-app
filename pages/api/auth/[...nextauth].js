@@ -45,7 +45,7 @@ export const authOptions = {
   },
   pages: {
     signIn: '/signin',
-  }
+  },
 }
 
 export default NextAuth(authOptions);

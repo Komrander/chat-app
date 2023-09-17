@@ -4,10 +4,7 @@ import { authOptions } from '/pages/api/auth/[...nextauth]';
 
 export default async function handler(req, res) {
     const session = await getServerSession(req, res, authOptions);
-    const url = req.headers.referer.split("/");
-    const chatId = parseInt(url[url.length-1]);
-
-    console.log(chatId)
+    const chatId = req.body.chatId;
 
     const user = await prisma.user.findUnique({
         where: {
