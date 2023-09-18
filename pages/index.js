@@ -25,8 +25,8 @@ export default function LandingPage() {
                         <h1 className={styles.registerTitle}>Create an account on<br/> WaveChat</h1>
                         <h1 className={styles.registerText}>Chat with your friends, family and coworkers</h1>
                         {(status=="authenticated")
-                        ?(<Button title="Open the application" onClick={() => Router.push('/app')}>Sign in</Button>)
-                        :(<Button title="Create an account" onClick={() => Router.push('/register')}>Sign in</Button>)}
+                        ?(<Button style="large" title="Open the application" onClick={() => Router.push('/app')}>Sign in</Button>)
+                        :(<Button style="large" title="Create an account" onClick={() => Router.push('/register')}>Sign in</Button>)}
                     </div>
                     <Image className={styles.showcase} width="570" height="400" alt="showcase of website" src="/showcase.png"/>
                 </div>
