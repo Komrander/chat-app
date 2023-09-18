@@ -8,7 +8,10 @@ export default function Button(props) {
 
     return (
         <button
-        className={(props.style == "negative")?(styles.negative):(props.style == "grey")?(styles.grey):(styles.button)}
+        className={(props.style == "negative")?(styles.negative)
+            :(props.style == "grey")?(styles.grey)
+            :(props.style == "large")?(styles.large)
+            :(styles.button)}
         onMouseEnter={() => setIsDark(true)}
         onMouseLeave={() => setIsDark(false)}
         onClick={props.onClick}
