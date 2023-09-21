@@ -1,6 +1,6 @@
 import { authOptions } from '/pages/api/auth/[...nextauth]';
 import { getServerSession } from "next-auth/next";
-import React from 'react';
+import React, {useState} from 'react';
 import prisma from "/lib/prismadb";
 
 import styles from '/styles/App.module.css';
@@ -11,18 +11,18 @@ import Button from "/components/button";
 import Icon from "/components/icon";
 
 export default function Homepage(props) {
-    const [showPopup, setShowPopup] = React.useState("none");
+    const [popupDisplay, setPopupDisplay] = useState("none");
 
     return (
         <div className={styles.wrapper}>
-            {(showPopup != "none")&&(<Popup display={showPopup}><Button style="grey" onClick={() => setShowPopup("none")} title="Cancel"/></Popup>)}
+            <Popup display={popupDisplay} setPopupState={setPopupDisplay}/>
             <div className={styles.container}>
                 <Sidenav chats={props.chats} id={props.id}>
-                    <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
+                    <Button onClick={() => setPopupDisplay("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
                 <div className={styles.main}>
                     <Header chat={props.chat}>
-                        <Icon onClick={() => setShowPopup("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
+                        <Icon onClick={() => setPopupDisplay("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
                     </Header>
                     <h1 className={styles.welcomeTitle}>Welcome, {props.username}!</h1>
                     <p className={styles.welcomeText}>
