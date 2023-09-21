@@ -1,38 +1,66 @@
 import { authOptions } from '/pages/api/auth/[...nextauth]';
 import { getServerSession } from "next-auth/next";
-import React from 'react';
+import React, {useState} from 'react';
 import prisma from "/lib/prismadb";
-import Router from "next/router"
 
 import styles from '/styles/App.module.css';
-import Header from '/components/app/header';
-import Sidenav from "/components/app/sidenav";
-import Sidemenu from "/components/app/sidemenu";
-import Chat from "/components/app/chat";
-import Popup from "/components/app/popup";
-import Button from "/components/app/button";
-import Icon from '/components/app/icon';
+import Header from '/components/header';
+import Sidenav from "/components/sidenav";
+import Sidemenu from "/components/sidemenu";
+import Chat from "/components/chat";
+import Popup from "/components/popup";
+import Button from "/components/button";
+import Icon from '/components/icon';
 
 export default function Homepage(props) {
-    const [showPopup, setShowPopup] = React.useState("none");
-    const dynamicRoute = Router.useRouter().asPath;
-    React.useEffect(() => setShowPopup("none"), [dynamicRoute]);
+    const [chat, setChat] = useState(props.chat);
+    const [popupDisplay, setPopupDisplay] = useState("none");
+
+    React.useEffect(() => {
+        setChat(props.chat);
+        const interval = setInterval(async ()=>{
+            try {
+                const response = await fetch("/api/chat", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: props.id }),
+                });
+
+                const chatData = await response.json();
+                
+                if (response.status != 200) {
+                    throw new Error("Server response was not OK.");
+                } else {
+                    setChat(chatData);
+                }
+            } catch (err) {
+                console.log("Error while fetching data: "+err);
+                clearInterval(interval);
+            }
+        },5000)
+
+        return () => {
+            clearInterval(interval);
+        }
+    }, [props.id, props.chat])
 
     return (
         <div className={styles.wrapper}>
-            {(showPopup != "none")&&(<Popup display={showPopup}><Button style="grey" onClick={() => setShowPopup("none")} title="Cancel"/></Popup>)}
+            <Popup display={popupDisplay} setPopupState={setPopupDisplay}/>
             <div className={styles.container}>
                 <Sidenav chats={props.chats} id={props.id}>
-                    <Button onClick={() => setShowPopup("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
+                    <Button onClick={() => setPopupDisplay("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
                 <div className={styles.main}>
-                    <Header chat={props.chat} chatName={props.chatName}>
-                        <Icon onClick={() => setShowPopup("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
+                    <Header chat={chat} chatName={props.chatName}>
+                        <Icon onClick={() => setPopupDisplay("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
                     </Header>
                     <div className={styles.chatContainer}>
-                        <Chat chat={props.chat} chatName={props.chatName} userId={props.userId}/>
-                        <Sidemenu chat={props.chat} chatName={props.chatName}>
-                            <Button onClick={() => setShowPopup("invite")} title="Invite user"/>
+                        <Chat chat={chat} chatName={props.chatName} userId={props.userId}/>
+                        <Sidemenu chat={chat} chatName={props.chatName}>
+                            <Button onClick={() => setPopupDisplay("invite")} title="Invite user"/>
                         </Sidemenu>
                     </div>
                 </div>

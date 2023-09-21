@@ -1,26 +1,10 @@
 import styles from './sidemenu.module.css';
-import Router from "next/router";
+import {handleLeave} from "../services/apiCalls";
 
 import Button from './button';
 import Profile from './profile';
 
 export default function Sidemenu(props) {
-    async function handleLeave(e) {
-        e.preventDefault();
-        const res = await fetch("/api/leave", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const result = await res.json();
-        console.log(result);
-        if (res.status == 200) {
-            Router.push('/app');
-        } else {
-            alert(result.data);
-        }
-    }
 
     return (
         <div className={styles.container}>
@@ -38,7 +22,7 @@ export default function Sidemenu(props) {
                 <div>
                     <div className={styles.buttonContainer}>
                         {props.children}
-                        <form onSubmit={handleLeave}>
+                        <form onSubmit={(e) => {e.preventDefault(); handleLeave(props.chat.id)}}>
                             <Button type="submit" title="Leave group" style="negative"/>
                         </form>
                     </div>
@@ -53,7 +37,7 @@ export default function Sidemenu(props) {
                 </div>
             ):(
                 <div className={styles.buttonContainer}>
-                    <form onSubmit={handleLeave}>
+                    <form onSubmit={(e) => {e.preventDefault(); handleLeave(props.chat.id)}}>
                         <Button type="submit" title="Delete chat" style="negative"/>
                     </form>
                 </div>

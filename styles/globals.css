@@ -1,43 +1,40 @@
 :root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --max-width: 1128px;
+  --side-padding: 2rem;
 
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --clr-primary: #294A5E;
+  --clr-primary-text: #FFFFFF;
 
-  --primary-glow: conic-gradient(
-    from 180deg at 50% 50%,
-    #16abff33 0deg,
-    #0885ff33 55deg,
-    #54d6ff33 120deg,
-    #0071ff33 160deg,
-    transparent 360deg
-  );
-  --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
+  --clr-background: #FBFDFA;
+  --clr-background-text: #191C1B;
+  --clr-background-dark: #E0E0E0;
 
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
+  --clr-grey: #3F4945;
+  --clr-grey-hover: #000000;
+  
+  --clr-secondary: #62BEC1;
+  --clr-secondary-hover: #45adb1;
+  --clr-secondary-text: #103132;
+  --clr-secondary-text-hover: #000000;
 
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
+  --clr-link: #62BEC1;
+  --clr-danger: #DF590D;
+  --clr-danger-hover: #933500;
+
+  --fs-display-medium: 3rem;
+  --fs-title-large: 1.4rem;
+  --fs-title-medium: 1.2rem;
+  --fs-title-small: 1.1rem;
+  --fx-text: 1rem;
+
+  @media (max-width: 500px) {
+    --side-padding: 1rem;
+
+    --fs-display-medium: 2rem;
+    --fs-title-large: 1.2rem;
+    --fs-title-medium: 1.1rem;
+    --fs-title-small: 1rem;
+  }
 }
 
 * {
