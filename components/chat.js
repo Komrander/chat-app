@@ -2,6 +2,8 @@ import styles from './chat.module.css';
 import React from 'react';
 import Router from "next/router";
 
+import {handleSendMessage} from "../services/apiCalls";
+
 import Icon from './icon';
 import Profile from './profile';
 
@@ -26,26 +28,6 @@ export default function Chat(props) {
             return ("yesterday at " + hour + ":" + minute);
         } else {
             return (day + "." + month + "." + year + " " + hour + ":" + minute);
-        }
-    }
-
-    async function handleSendMessage(e) {
-        e.preventDefault();
-        const message = e.target.message.value;
-        e.target.message.value = "";
-        const res = await fetch("/api/message", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: message }),
-        });
-        const result = await res.json();
-        console.log(result);
-        if (res.status == 200) {
-            Router.replace(window.location.pathname);
-        } else {
-            alert(result.data);
         }
     }
 
@@ -80,7 +62,7 @@ export default function Chat(props) {
                     )
                 }
             </div>
-            <form className={styles.inputBar} onSubmit={handleSendMessage}>
+            <form className={styles.inputBar} onSubmit={(e) => {e.preventDefault(); handleSendMessage(e.target.message.value)}}>
                 <textarea
                 name="message"
                 className={styles.textarea}

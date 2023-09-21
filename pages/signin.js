@@ -1,23 +1,25 @@
-import { signIn } from "next-auth/react";
 import styles from "/styles/form.module.css";
 
-import Button from "/components/app/button";
+import {handleSignIn} from "../services/apiCalls";
+
+import Image from 'next/image';
+import Button from "/components/button";
 import Link from "next/link";
 
 export default function SignIn() {
-  async function handleSignIn(e) {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    
-    signIn("credentials", { email: email, password: password, callbackUrl: "/app" });
-  }
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.header}>
+          <div className={styles.nav}>
+              <Link href="/">
+                <Image width="166" height="40" alt="logo" src="/logo.svg"/>
+              </Link>
+          </div>
+      </div>
       <div className={styles.container}>
         <h1 className={styles.title}>Welcome back!</h1>
-        <form className={styles.formContainer} onSubmit={handleSignIn}>
+        <form className={styles.formContainer} onSubmit={(e) => {e.preventDefault(), handleSignIn(e.target.email.value, e.target.password.value, "/app")}}>
           <input className={styles.input} name="email" type="email" placeholder="Email"/>
           <input className={styles.input} name="password" type="password" placeholder="Password"/>
           <Button type="submit" title="Login"/>
