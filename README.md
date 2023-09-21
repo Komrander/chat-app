@@ -1,6 +1,6 @@
 # Wavechat
 ## Description
-Web chat app in Next.js. Uses Prisma for connection to a MySQL database and NextAuth.js for authentication.
+A web chat app in Next.js. Uses Prisma for connection to a MySQL database and NextAuth.js for authentication.
 ###
 You can try the website [here](https://wavechat.vercel.app/)
 ###
