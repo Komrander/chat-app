@@ -41,7 +41,7 @@ export default function Chat(props) {
                                 <div className={styles.userMessageContainer}>
                                     <h1 className={styles.userMessageDate}>{getTimeString(message.date)}</h1>
                                     <div className={styles.userMessageBody}>
-                                        <p className={styles.userMessageText}>{message.content}</p>
+                                        <p>{message.content}</p>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@ export default function Chat(props) {
                                         <h1 className={styles.responseMessageDate}>{getTimeString(message.date)}</h1>
                                     </div>
                                     <div className={styles.responseMessageBody}>
-                                        <p className={styles.responseMessageText}>{message.content}</p>
+                                        <p>{message.content}</p>
                                     </div>
                                 </div>
                             </div>

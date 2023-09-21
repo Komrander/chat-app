@@ -4,8 +4,11 @@
 
   --clr-primary: #294A5E;
   --clr-primary-text: #FFFFFF;
+  --clr-primary-light: #426277;
+  --clr-primary-dark: #1e394a;
 
   --clr-background: #FBFDFA;
+  --clr-background-variant: #EFF1EE;
   --clr-background-text: #191C1B;
   --clr-background-dark: #E0E0E0;
 
@@ -25,7 +28,8 @@
   --fs-title-large: 1.4rem;
   --fs-title-medium: 1.2rem;
   --fs-title-small: 1.1rem;
-  --fx-text: 1rem;
+  --fs-text: 1rem;
+  --fs-text-small: 0.75rem;
 
   @media (max-width: 500px) {
     --side-padding: 1rem;
