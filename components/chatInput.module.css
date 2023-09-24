@@ -1,0 +1,21 @@
+.container {
+    padding: 0 2rem;
+}
+
+.inputBar {
+    background-color: var(--clr-background-dark);
+    border-radius: 28px;
+    padding: 1rem;
+    display: flex;
+}
+
+.textarea {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    flex-grow: 1;
+    font-size: var(--fs-text);
+    font-weight: 400;
+    padding-right: 1rem;
+}

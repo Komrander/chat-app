@@ -1,50 +1,20 @@
-import { authOptions } from '/pages/api/auth/[...nextauth]';
+import { authOptions } from "/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import React, {useState} from 'react';
+import React, {useState} from "react";
 import prisma from "/lib/prismadb";
 
-import styles from '/styles/App.module.css';
-import Header from '/components/header';
+import styles from "/styles/App.module.css";
+import Header from "/components/header";
 import Sidenav from "/components/sidenav";
 import Sidemenu from "/components/sidemenu";
 import Chat from "/components/chat";
 import Popup from "/components/popup";
 import Button from "/components/button";
-import Icon from '/components/icon';
+import Icon from "/components/icon";
+import ChatInput from "/components/chatInput";
 
 export default function Homepage(props) {
-    const [chat, setChat] = useState(props.chat);
     const [popupDisplay, setPopupDisplay] = useState("none");
-
-    React.useEffect(() => {
-        setChat(props.chat);
-        const interval = setInterval(async ()=>{
-            try {
-                const response = await fetch("/api/chat", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ id: props.id }),
-                });
-
-                const chatData = await response.json();
-                
-                if (response.status != 200) {
-                    throw new Error("Server response was not OK.");
-                } else {
-                    setChat(chatData);
-                }
-            } catch (err) {
-                console.log("Error while fetching data: "+err);
-                clearInterval(interval);
-            }
-        },5000)
-
-        return () => {
-            clearInterval(interval);
-        }
-    }, [props.id, props.chat])
 
     return (
         <div className={styles.wrapper}>
@@ -54,12 +24,15 @@ export default function Homepage(props) {
                     <Button onClick={() => setPopupDisplay("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
                 </Sidenav>
                 <div className={styles.main}>
-                    <Header chat={chat} chatName={props.chatName}>
+                    <Header chat={props.chat} chatName={props.chatName}>
                         <Icon onClick={() => setPopupDisplay("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
                     </Header>
                     <div className={styles.chatContainer}>
-                        <Chat chat={chat} chatName={props.chatName} userId={props.userId}/>
-                        <Sidemenu chat={chat} chatName={props.chatName}>
+                        <div className={styles.innerChatContainer}>
+                            <Chat chat={props.chat} id={props.id} userId={props.userId}/>
+                            <ChatInput chatName={props.chatName}/>
+                        </div>
+                        <Sidemenu chat={props.chat} chatName={props.chatName}>
                             <Button onClick={() => setPopupDisplay("invite")} title="Invite user"/>
                         </Sidemenu>
                     </div>
@@ -76,7 +49,7 @@ export async function getServerSideProps(context) {
     if (!session) {
         return {
             redirect: {
-                destination: '/',
+                destination: "/",
                 permanent: false,
             },
         }

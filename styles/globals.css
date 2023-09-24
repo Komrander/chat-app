@@ -46,6 +46,17 @@
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #E0E0E0 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: var(--clr-background-dark);
 }
 
 html,

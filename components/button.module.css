@@ -39,12 +39,30 @@
 .grey {
     background-color: transparent;
     border: none;
-    color: var(--clor-grey);
-    padding: 1em 1em;
+    color: var(--clr-grey);
+    padding: 0.5em 1em;
     font-size: var(--fs-title-small);
     font-weight: 500;
-    text-align: left;
     cursor: pointer;
+    text-align: left;
+}
+
+.option {
+    background-color: transparent;
+    border: var(--clr-grey) 1px solid;
+    border-radius: 100px;
+    padding: 0.75em 1em;
+    color: var(--clr-grey);
+    font-size: var(--fs-title-small);
+    font-weight: 500;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: var(--clr-grey-hover);
+    color: var(--clr-grey-hover);
 }
 
 /* Darker background on mouse-over */
@@ -58,7 +76,8 @@
     color: var(--clr-secondary-text-hover);
 }
 
-.buttonNegative:hover {
+.negative:hover {
+    background-color: rgba(0, 0, 0, 0.1);
     border-color: var(--clr-danger-hover);
     color:var(--clr-danger-hover);
 }

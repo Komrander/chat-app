@@ -103,6 +103,9 @@ async function handleChangePassword(oldPassword, newPassword) {
 
 async function handleSendMessage(message) {
   try {
+    if (message.length < 1) {
+      throw new Error("Empty message");
+    }
     const res = await fetch("/api/message", {
         method: "POST",
         headers: {
@@ -111,9 +114,7 @@ async function handleSendMessage(message) {
         body: JSON.stringify({ message: message }),
     });
     const result = await res.json();
-    if (res.status == 200) {
-        Router.replace(window.location.pathname);
-    } else {
+    if (res.status != 200) {
       throw new Error(result.data);
     }
   } catch (e) {
