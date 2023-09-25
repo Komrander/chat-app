@@ -11,6 +11,7 @@ export default function Button(props) {
         className={(props.style == "negative")?(styles.negative)
             :(props.style == "grey")?(styles.grey)
             :(props.style == "large")?(styles.large)
+            :(props.style == "option")?(styles.option)
             :(styles.button)}
         onMouseEnter={() => setIsDark(true)}
         onMouseLeave={() => setIsDark(false)}

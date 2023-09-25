@@ -14,8 +14,10 @@ export default function Popup(props) {
         case "add":
             title = "Add a new chat";
             content = <>
-                <button className={styles.button} onClick={() => props.setPopupState("addGroup")}>Create group</button>
-                <button className={styles.button} onClick={() => props.setPopupState("addDirect")}>Start direct chat</button>
+                <div className={styles.innerContainer}>
+                    <Button style="option" title="Create group" onClick={() => props.setPopupState("addGroup")}/>
+                    <Button style="option" title="Start direct chat" onClick={() => props.setPopupState("addDirect")}/>
+                </div>
                 <Button style="grey" onClick={() => props.setPopupState("none")} title="Cancel"/>
             </>;
             break;
@@ -23,7 +25,9 @@ export default function Popup(props) {
             title = "Create a new group";
             content = <>
                 <form onSubmit={(e) => {e.preventDefault(); handleAddGroup(e.target.name.value); props.setPopupState("none")}}>
-                    <input className={styles.input} name="name" type="text" placeholder="Group name"></input>
+                    <div className={styles.innerContainer}>
+                        <input className={styles.input} name="name" type="text" placeholder="Group name"></input>
+                    </div>
                     <div className={styles.buttonContainer}>
                         <Button style="grey" onClick={() => props.setPopupState("add")} title="Cancel"/>
                         <Button type="submit" title="Create new group"/>
@@ -35,7 +39,9 @@ export default function Popup(props) {
             title = "Start new direct chat";
             content = <>
                 <form onSubmit={(e) => {e.preventDefault(); handleAddDirect(e.target.email.value); props.setPopupState("none")}}>
-                    <input className={styles.input} name="email" type="email" placeholder="Email"></input>
+                    <div className={styles.innerContainer}>
+                        <input className={styles.input} name="email" type="email" placeholder="Email"></input>
+                    </div>
                     <div className={styles.buttonContainer}>
                         <Button style="grey" onClick={() => props.setPopupState("add")} title="Cancel"/>
                         <Button type="submit" title="Start direct chat"/>
@@ -47,7 +53,9 @@ export default function Popup(props) {
             title = "Send invite";
             content = <>
                 <form onSubmit={(e) => {e.preventDefault(); handleInvite(e.target.email.value); props.setPopupState("none")}}>
-                    <input className={styles.input} name="email" type="email" placeholder="Email"></input>
+                    <div className={styles.innerContainer}>
+                        <input className={styles.input} name="email" type="email" placeholder="Email"></input>
+                    </div>
                     <div className={styles.buttonContainer}>
                         <Button style="grey" onClick={() => props.setPopupState("none")} title="Cancel"/>
                         <Button type="submit" title="Send invite"/>
@@ -59,7 +67,9 @@ export default function Popup(props) {
             title = "Change username";
             content = <>
                 <form onSubmit={(e) => {e.preventDefault(); handleChangeName(e.target.name.value); props.setPopupState("none")}}>
-                    <input className={styles.input} name="name" type="text" placeholder="New username"></input>
+                    <div className={styles.innerContainer}>
+                        <input className={styles.input} name="name" type="text" placeholder="New username"></input>
+                    </div>
                     <div className={styles.buttonContainer}>
                         <Button style="grey" onClick={() => props.setPopupState("settings")} title="Cancel"/>
                         <Button type="submit" title="Change username"/>
@@ -71,8 +81,10 @@ export default function Popup(props) {
             title = "Change password";
             content = <>
                 <form onSubmit={(e) => {e.preventDefault(); handleChangePassword(e.target.oldPassword.value, e.target.newPassword.value); props.setPopupState("none")}}>
-                    <input className={styles.input} name="oldPassword" type="password" placeholder="Old password"></input>
-                    <input className={styles.input} name="newPassword" type="password" placeholder="New password"></input>
+                    <div className={styles.innerContainer}>
+                        <input className={styles.input} name="oldPassword" type="password" placeholder="Old password"></input>
+                        <input className={styles.input} name="newPassword" type="password" placeholder="New password"></input>
+                    </div>
                     <div className={styles.buttonContainer}>
                         <Button style="grey" onClick={() => props.setPopupState("settings")} title="Cancel"/>
                         <Button type="submit" title="Change password"/>
@@ -83,16 +95,20 @@ export default function Popup(props) {
         case "settings":
             title = "Settings";
             content = <>
-                <button className={styles.button} onClick={() => props.setPopupState("changeName")}>Change username</button>
-                <button className={styles.button} onClick={() => props.setPopupState("changePassword")}>Change password</button>
-                <Button style="negative" onClick={() => signOut()} title="Logout"/>
+                <div className={styles.innerContainer}>
+                    <Button style="option" title="Change username" onClick={() => props.setPopupState("changeName")}/>
+                    <Button style="option" title="Change password" onClick={() => props.setPopupState("changePassword")}/>
+                    <Button style="negative" onClick={() => signOut()} title="Logout"/>
+                </div>
                 <Button style="grey" onClick={() => props.setPopupState("none")} title="Cancel"/>
             </>;
             break;
         default:
             title = props.title ?? "Title";
             content = <>
-                <p>{props.content ?? "Content"}</p>
+                <div className={styles.innerContainer}>
+                    <p>{props.content ?? "Content"}</p>
+                </div>
                 <Button style="grey" onClick={() => props.setPopupState("none")} title="Cancel"/>
             </>;
             break;

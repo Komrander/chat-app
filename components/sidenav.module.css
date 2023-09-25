@@ -1,134 +1,77 @@
 .container {
     display: flex;
     flex-direction: column;
-    width: 360px;
-    background-color: #294A5E;
+    width: 280px;
+    background-color: var(--clr-primary);
     z-index: 1;
-    padding: 12px;
+    padding: 1rem;
     min-height: 100%;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .title {
-    color: #FFFFFF;
+    color: var(--clr-primary-text);
     font-weight: 400;
-    font-size: 22px;
-    line-height: 28px;
+    font-size: var(--fs-title-large);
 }
 
 .titleContainer {
     display: flex;
     flex-direction: row;
-    height: 56px;
-    width: 336px;
     justify-content: space-between;
     align-items: center;
-    padding: 8px;
+    padding-bottom: 1rem;
 }
 
 .navButton {
     display: flex;
-    height: 56px;
-    padding: 8px 20px;
-    gap: 12px;
+    padding: 0.5rem;
+    gap: 1rem;
     border-radius: 12px;
+    color: var(--clr-primary-text);
 }
 
 .navButton:hover {
-    background-color: #3f5e72;
-    cursor:pointer;
+    background-color: var(--clr-primary-hover);
 }
 
 .navButtonHighlight {
-    background-color: #426277;
+    background-color: var(--clr-primary-light);
     display: flex;
-    height: 56px;
-    padding: 8px 20px;
-    gap: 12px;
+    padding: 0.5rem;
+    gap: 1rem;
     border-radius: 12px;
-}
-
-.navButtonHighlight:hover {
-    background-color: #55768b;
-    cursor:pointer;
+    color: var(--clr-primary-text);
 }
 
 .navButtonContainer {
-    height: 40px;
-    width: calc(100% - 52px);
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .navButtonHeader {
-    height: 20px;
     display: flex;
     justify-content: space-between;
-    flex-grow: 1;
-}
-
-.navButtonContent {
-    height: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 12px;
 }
 
 .navButtonName {
-    color: #C6E7FF;
-    font-size: 14px;
+    font-size: var(--fs-text);
     font-weight: 500;
-    line-height: 20px;
 }
 
 .navButtonTime {
-    color: #8EAFC7;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 16px;
-}
-
-.navButtonNameHighlight {
-    color: #FBFDFA;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-}
-
-.navButtonTimeHighlight {
-    color: #FBFDFA;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 16px;
+    font-size: var(--fs-text-small);
+    font-weight: 400;
 }
 
 .navButtonMessage {
-    color: #8EAFC7;
-    font-size: 12px;
+    font-size: var(--fs-text-small);
     font-weight: 400;
-    line-height: 12px;
     text-overflow: ellipsis;
     overflow: hidden; 
     white-space: nowrap;
-}
-
-.navButtonMessageHighlight {
-    color: #FBFDFA;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 16px;
-    text-overflow: ellipsis;
-    overflow: hidden; 
-    white-space: nowrap;
-}
-
-.navButtonNotification {
-    background-color: #DF590D;
-    min-height: 16px;
-    min-width: 16px;
-    border-radius: 100px;
-    text-align: center;
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 16px;
 }

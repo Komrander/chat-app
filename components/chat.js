@@ -1,13 +1,41 @@
 import styles from './chat.module.css';
-import React from 'react';
-import Router from "next/router";
+import React, {useState} from 'react';
 
-import {handleSendMessage} from "../services/apiCalls";
-
-import Icon from './icon';
 import Profile from './profile';
 
 export default function Chat(props) {
+    const [chat, setChat] = useState(props.chat);
+
+    React.useEffect(() => {
+        setChat(props.chat);
+        const interval = setInterval(async ()=>{
+            try {
+                const response = await fetch("/api/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ id: props.id }),
+                });
+
+                const chatData = await response.json();
+                
+                if (response.status != 200) {
+                    throw new Error("Server response was not OK.");
+                } else {
+                    setChat(chatData);
+                }
+            } catch (err) {
+                console.log("Error while fetching data: "+err);
+                clearInterval(interval);
+            }
+        },3000)
+
+        return () => {
+            clearInterval(interval);
+        }
+    }, [props.id, props.chat])
+
     const currentDate = new Date();
     const today = currentDate.setUTCHours(0,0,0,0);
     const yesterday = currentDate.setDate(currentDate.getDate() -1);
@@ -34,41 +62,34 @@ export default function Chat(props) {
     return (
         <div className={styles.container}>
             <div className={styles.messageContainer}>
-                {
-                    props.chat.messages.map(message =>
-                        (message.userId == props.userId)?(
-                            <div key={message.id} className={styles.userMessage}>
-                                <div className={styles.userMessageContainer}>
-                                    <h1 className={styles.userMessageDate}>{getTimeString(message.date)}</h1>
-                                    <div className={styles.userMessageBody}>
-                                        <p className={styles.userMessageText}>{message.content}</p>
-                                    </div>
+                {chat.messages.map(message =>
+                    (message.userId == props.userId)?(
+                        <div key={message.id} className={styles.userMessage}>
+                            <div className={styles.userMessageContainer}>
+                                <h1 className={styles.userMessageDate}>{getTimeString(message.date)}</h1>
+                                <div className={styles.userMessageBody}>
+                                    <pre className={styles.messageText}>{message.content}</pre>
                                 </div>
                             </div>
-                        ):(
-                            <div key={message.id} className={styles.responseMessage}>
+                        </div>
+                    ):(
+                        <div key={message.id} className={styles.responseMessage}>
+                            <div className={styles.profileContainer}>
                                 <Profile name={message.user.name} style="medium"/>
-                                <div className={styles.responseMessageContainer}>
-                                    <div className={styles.responseMessageHeader}>
-                                        <h1 className={styles.responseMessageName}>{message.user.name}</h1>
-                                        <h1 className={styles.responseMessageDate}>{getTimeString(message.date)}</h1>
-                                    </div>
-                                    <div className={styles.responseMessageBody}>
-                                        <p className={styles.responseMessageText}>{message.content}</p>
-                                    </div>
+                            </div>
+                            <div className={styles.responseMessageContainer}>
+                                <div className={styles.responseMessageHeader}>
+                                    <h1 className={styles.responseMessageName}>{message.user.name}</h1>
+                                    <h1 className={styles.responseMessageDate}>{getTimeString(message.date)}</h1>
+                                </div>
+                                <div className={styles.responseMessageBody}>
+                                    <pre className={styles.messageText}>{message.content}</pre>
                                 </div>
                             </div>
-                        )
+                        </div>
                     )
-                }
+                )}
             </div>
-            <form className={styles.inputBar} onSubmit={(e) => {e.preventDefault(); handleSendMessage(e.target.message.value)}}>
-                <textarea
-                name="message"
-                className={styles.textarea}
-                placeholder={"Type a message to " + props.chatName + "..."}/>
-                <Icon type="submit" image="/icons/send.png" imageDark="/icons/sendDark.png"/>
-            </form>
         </div>
     )
 }

@@ -29,9 +29,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ data: 'Missing data' });
     }
 
-    const message = await prisma.message.create({
+    const messageContent = body.message.trim();
+
+    await prisma.message.create({
         data: {
-            content: body.message,
+            content: messageContent,
             userId: user.id,
             chatId: chat.id,
         },

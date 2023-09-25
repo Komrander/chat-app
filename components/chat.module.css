@@ -1,130 +1,96 @@
 .container {
+    overflow-y: auto;
     flex-grow: 1;
-    background-color: #FBFDFA;
-    display: flex;
-    flex-direction: column;
-}
-
-/* MESSAGE CSS */
-
-.messageContainer {
-    flex-grow: 1;
+    height: 0;
+    padding: 0 1.5rem 0 2rem;
     display: flex;
     flex-direction: column-reverse;
-    margin-bottom: 12px;
-    min-width: 512px;
-    height: 0px;
-    overflow-y: scroll;
-    margin-left: 24px;
-    padding-right: 8px;
+    scrollbar-gutter: stable;
+    max-width: 100%;
 }
 
-/* Response messages */
+.messageContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1rem;
+    min-height: 100%;
+    overflow-y: visible;
+}
 
 .responseMessage {
     display: flex;
-    gap: 8px;
-    padding: 12px 0;
+    gap: 0.5rem;
 }
 
 .responseMessageContainer {
-    max-width: 456px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding-right: 3.5rem;
 }
 
 .responseMessageHeader {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 4px;
-    gap: 20px;
+    align-items: baseline;
+    padding-bottom: 0.5rem;
+    gap: 1rem;
 }
 
 .responseMessageName {
-    color: #191C1B;
-    font-size: 16px;
+    color: var(--clr-background-text);
+    font-size: var(--fs-text);
     font-weight: 500;
-    line-height: 24px;
 }
 
 .responseMessageDate {
-    color: #3F4945;
-    font-size: 12px;
+    color: var(--clr-grey);
+    font-size: var(--fs-text-small);
     font-weight: 500;
-    line-height: 16px;
 }
 
 .responseMessageBody {
-    background-color: #E1E3E0;
+    background-color: var(--clr-background-dark);
     border-radius: 12px;
-    padding: 8px;
-    min-height: 40px;
-}
-
-.responseMessageText {
-    color: #2E3130;
-    font-size: 16px;
+    padding: 0.5em;
+    color: var(--clr-background-text);
+    font-size: var(--fs-text);
+    width: fit-content;
     font-weight: 400;
-    line-height: 24px;
+    max-width: 640px;
 }
-
-/* User messages */
 
 .userMessage {
     display: flex;
     flex-direction: row-reverse;
-    padding: 12px 0;
 }
 
 .userMessageContainer {
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding-left: 3.5rem;
 }
 
 .userMessageDate {
-    color: #3F4945;
-    font-size: 12px;
+    color: var(--clr-grey);
+    font-size: var(--fs-text-small);
     font-weight: 500;
-    line-height: 16px;
-    margin-bottom: 4px;
+    padding-bottom: 0.5rem;
 }
 
 .userMessageBody {
-    background-color: #426277;
+    background-color: var(--clr-primary-light);
     border-radius: 12px;
-    padding: 8px;
-    min-height: 40px;
-}
-
-.userMessageText {
-    color: #FFFFFF;
-    font-size: 16px;
+    padding: 0.5em;
+    color: var(--clr-primary-text);
+    font-size: var(--fs-text);
     font-weight: 400;
-    line-height: 24px;
+    max-width: 640px;
 }
 
-/* INPUT BAR CSS */
-
-.inputBar {
-    background-color: #E0E0E0;
-    border-radius: 28px;
-    max-height: 50%;
-    padding: 0 4px 0 18px;
-    display: flex;
-    margin: 0 24px 24px 24px;
-}
-
-.textarea {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    resize: none;
-    overflow-y: auto;
-    margin: 12px 0;
-    max-height: 100%;
-    height: auto;
-    line-height: 24px;
-    flex-grow: 1;
-    font-size: 16px;
-    font-weight: 400;
+.messageText {
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }

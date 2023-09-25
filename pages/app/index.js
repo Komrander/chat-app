@@ -24,12 +24,14 @@ export default function Homepage(props) {
                     <Header chat={props.chat}>
                         <Icon onClick={() => setPopupDisplay("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
                     </Header>
-                    <h1 className={styles.welcomeTitle}>Welcome, {props.username}!</h1>
-                    <p className={styles.welcomeText}>
-                        Start a new chat with the add button or select an existing chat on the left panel.
-                        <br/><br/>
-                        Use the settings icon to logout or change your name and password.
-                    </p>
+                    <div className={styles.welcomeContainer}>
+                        <h1 className={styles.welcomeTitle}>Welcome, {props.username}!</h1>
+                        <p className={styles.welcomeText}>
+                            Start a new chat with the add button or select an existing chat on the left panel.
+                            <br/><br/>
+                            Use the settings icon to logout or change your name and password.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
