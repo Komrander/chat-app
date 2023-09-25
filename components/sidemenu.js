@@ -8,15 +8,11 @@ export default function Sidemenu(props) {
 
     return (
         <div className={styles.container}>
-            <div className={styles.titleContainer}>
-                <h1 className={styles.title}>Details</h1>
-            </div>
-            <div className={styles.titleContainer}>
-                <h1 className={styles.subtitle}>About</h1>
-            </div>
+            <h1 className={styles.title}>Details</h1>
+            <h2 className={styles.subtitle}>About</h2>
             <div className={styles.infoContainer}>
                 <Profile name={props.chatName} style="large"/>
-                <h1 className={styles.infoTitle}>{props.chatName}</h1>
+                <h3 className={styles.infoTitle}>{props.chatName}</h3>
             </div>
             {(props.chat.type == "GROUP")?(
                 <div>
@@ -26,9 +22,7 @@ export default function Sidemenu(props) {
                             <Button type="submit" title="Leave group" style="negative"/>
                         </form>
                     </div>
-                    <div className={styles.titleContainer}>
-                        <h1 className={styles.subtitle}>Members - {props.chat.participants.length}</h1>
-                    </div>
+                    <h2 className={styles.subtitle}>Members - {props.chat.participants.length}</h2>
                     {
                         props.chat.participants.map(user =>
                             <Profile key={user.id} style="full" name={user.name}></Profile>

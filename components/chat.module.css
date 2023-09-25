@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column-reverse;
     scrollbar-gutter: stable;
+    max-width: 100%;
 }
 
 .messageContainer {
@@ -22,7 +23,10 @@
 }
 
 .responseMessageContainer {
-    max-width: 456px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding-right: 3.5rem;
 }
 
 .responseMessageHeader {
@@ -30,7 +34,7 @@
     justify-content: space-between;
     align-items: baseline;
     padding-bottom: 0.5rem;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .responseMessageName {
@@ -51,7 +55,9 @@
     padding: 0.5em;
     color: var(--clr-background-text);
     font-size: var(--fs-text);
+    width: fit-content;
     font-weight: 400;
+    max-width: 640px;
 }
 
 .userMessage {
@@ -60,9 +66,11 @@
 }
 
 .userMessageContainer {
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    padding-left: 3.5rem;
 }
 
 .userMessageDate {
@@ -79,4 +87,10 @@
     color: var(--clr-primary-text);
     font-size: var(--fs-text);
     font-weight: 400;
+    max-width: 640px;
+}
+
+.messageText {
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }

@@ -66,21 +66,19 @@ export default function Sidenav(props) {
                     <Link href={`/app/chats/${encodeURIComponent(chat.id)}`} key={chat.id}>
                         <div className={(chat.id == props.id)?(styles.navButtonHighlight):(styles.navButton)}>
                             <Profile name={(chat.type == "GROUP")?(chat.name):(chat.participants[0].name)}
-                            style="small"/>
+                            style="medium"/>
                             <div className={styles.navButtonContainer}>
                                 <div className={styles.navButtonHeader}>
-                                    <h1 className={styles.navButtonNameHighlight}>
+                                    <h1 className={styles.navButtonName}>
                                         {(chat.type == "GROUP")?(chat.name):(chat.participants[0].name)}
                                     </h1>
-                                    <h1 className={styles.navButtonTimeHighlight}>
+                                    <h1 className={styles.navButtonTime}>
                                         {chat.messages[0] && getTimeString(chat.messages[0].date)}
                                     </h1>
                                 </div>
-                                <div className={styles.navButtonContent}>
-                                    <h1 className={styles.navButtonMessageHighlight}>
-                                        {chat.messages[0] && chat.messages[0].content}
-                                    </h1>
-                                </div>
+                                <h1 className={styles.navButtonMessage}>
+                                    {chat.messages[0] && chat.messages[0].content}
+                                </h1>
                             </div>
                         </div>
                     </Link>

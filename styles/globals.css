@@ -5,12 +5,15 @@
   --clr-primary: #294A5E;
   --clr-primary-text: #FFFFFF;
   --clr-primary-light: #426277;
+  --clr-primary-hover: #345469;
   --clr-primary-dark: #1e394a;
 
   --clr-background: #FBFDFA;
   --clr-background-variant: #EFF1EE;
+  --clr-background-variant-dark: #DBE5E0;
   --clr-background-text: #191C1B;
   --clr-background-dark: #E0E0E0;
+  --clr-background-border: #C4C7C5;
 
   --clr-grey: #3F4945;
   --clr-grey-hover: #000000;
@@ -25,6 +28,7 @@
   --clr-danger-hover: #933500;
 
   --fs-display-medium: 3rem;
+  --fs-display-small: 2rem;
   --fs-title-large: 1.4rem;
   --fs-title-medium: 1.2rem;
   --fs-title-small: 1.1rem;

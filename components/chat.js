@@ -68,20 +68,22 @@ export default function Chat(props) {
                             <div className={styles.userMessageContainer}>
                                 <h1 className={styles.userMessageDate}>{getTimeString(message.date)}</h1>
                                 <div className={styles.userMessageBody}>
-                                    <pre>{message.content}</pre>
+                                    <pre className={styles.messageText}>{message.content}</pre>
                                 </div>
                             </div>
                         </div>
                     ):(
                         <div key={message.id} className={styles.responseMessage}>
-                            <Profile name={message.user.name} style="medium"/>
+                            <div className={styles.profileContainer}>
+                                <Profile name={message.user.name} style="medium"/>
+                            </div>
                             <div className={styles.responseMessageContainer}>
                                 <div className={styles.responseMessageHeader}>
                                     <h1 className={styles.responseMessageName}>{message.user.name}</h1>
                                     <h1 className={styles.responseMessageDate}>{getTimeString(message.date)}</h1>
                                 </div>
                                 <div className={styles.responseMessageBody}>
-                                    <pre>{message.content}</pre>
+                                    <pre className={styles.messageText}>{message.content}</pre>
                                 </div>
                             </div>
                         </div>

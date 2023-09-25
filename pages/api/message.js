@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ data: 'Missing data' });
     }
 
-    const messageContent = body.message.replace(/^\s*[\r\n]/gm, "");
+    const messageContent = body.message.trim();
 
     await prisma.message.create({
         data: {
