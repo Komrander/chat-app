@@ -86,8 +86,8 @@
     color: var(--clr-grey-hover);
 }
 
-.image {
-    width: 12px;
-    height: 12px;
-    margin-right: 11px;
+.icon {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
 }

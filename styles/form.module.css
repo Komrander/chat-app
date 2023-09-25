@@ -1,5 +1,5 @@
 .wrapper {
-    background-color: var(--clr-primary);
+    background-color: var(--clr-background);
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -25,17 +25,16 @@
 
 .container {
     width: 520px;
-    background-color: var(--clr-background);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10rem auto auto auto;
+    margin: 3rem auto auto auto;
     padding: 2rem var(--side-padding);
     gap: 2rem;
 }
 
 .title {
-    color: #191C1B;
+    color: var(--clr-background-text);
     text-align: center;
     font-size: var(--fs-display-medium);
     font-weight: 400;
@@ -50,6 +49,7 @@
 
 .input {
     background-color: var(--clr-background-dark);
+    color: var(--clr-background-text);
     border: none;
     border-radius: 28px;
     padding: 0 2ch;

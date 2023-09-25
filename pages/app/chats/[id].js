@@ -3,15 +3,18 @@ import { getServerSession } from "next-auth/next";
 import React, {useState} from "react";
 import prisma from "/lib/prismadb";
 
+import {faGear, faPlus} from "@fortawesome/free-solid-svg-icons";
+
 import styles from "/styles/App.module.css";
-import Header from "/components/header";
-import Sidenav from "/components/sidenav";
-import Sidemenu from "/components/sidemenu";
-import Chat from "/components/chat";
-import Popup from "/components/popup";
-import Button from "/components/button";
-import Icon from "/components/icon";
-import ChatInput from "/components/chatInput";
+
+import Header from "/components/header/header";
+import Sidenav from "/components/sidenav/sidenav";
+import Sidemenu from "/components/sidemenu/sidemenu";
+import Chat from "/components/chat/chat";
+import Popup from "/components/popup/popup";
+import Button from "/components/button/button";
+import Icon from "/components/icon/icon";
+import ChatInput from "/components/chatInput/chatInput";
 
 export default function Homepage(props) {
     const [popupDisplay, setPopupDisplay] = useState("none");
@@ -21,11 +24,11 @@ export default function Homepage(props) {
             <Popup display={popupDisplay} setPopupState={setPopupDisplay}/>
             <div className={styles.container}>
                 <Sidenav chats={props.chats} id={props.id}>
-                    <Button onClick={() => setPopupDisplay("add")} title="Add" image="/icons/plus.png" imageDark="/icons/plusDark.png"/>
+                    <Button onClick={() => setPopupDisplay("add")} title="Add" icon={faPlus}/>
                 </Sidenav>
                 <div className={styles.main}>
                     <Header chat={props.chat} chatName={props.chatName}>
-                        <Icon onClick={() => setPopupDisplay("settings")} image="/icons/settings.png" imageDark="/icons/settingsDark.png"/>
+                        <Icon onClick={() => setPopupDisplay("settings")} icon={faGear}/>
                     </Header>
                     <div className={styles.chatContainer}>
                         <div className={styles.innerChatContainer}>

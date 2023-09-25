@@ -38,6 +38,7 @@
 }
 
 .input {
+    color: var(--clr-background-text);
     background-color: var(--clr-background-dark);
     border: none;
     border-radius: 28px;

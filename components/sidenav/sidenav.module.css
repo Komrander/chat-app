@@ -61,6 +61,9 @@
 .navButtonName {
     font-size: var(--fs-text);
     font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
 }
 
 .navButtonTime {

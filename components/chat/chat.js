@@ -1,7 +1,7 @@
 import styles from './chat.module.css';
 import React, {useState} from 'react';
 
-import Profile from './profile';
+import Profile from '/components/profile/profile';
 
 export default function Chat(props) {
     const [chat, setChat] = useState(props.chat);

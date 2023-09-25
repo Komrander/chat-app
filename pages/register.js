@@ -1,8 +1,8 @@
 import styles from '/styles/form.module.css';
 
-import {handleRegister} from "../services/apiCalls";
+import {handleRegister} from "/services/apiCalls";
 
-import Button from '/components/button';
+import Button from '/components/button/button';
 import Link from 'next/link'
 import Image from "next/image";
 
