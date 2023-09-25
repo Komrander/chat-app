@@ -2,9 +2,11 @@ import styles from './chatInput.module.css';
 import React, {useState, useEffect, useRef} from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
-import {handleSendMessage} from "../services/apiCalls";
+import {handleSendMessage} from "/services/apiCalls";
 
-import Icon from './icon';
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+
+import Icon from '/components/icon/icon';
 
 export default function ChatInput(props) {
     const [message, setMessage] = useState("");
@@ -39,7 +41,7 @@ export default function ChatInput(props) {
                 onChange={(e) => setMessage(e.target.value)}
                 value={message}
                 autoFocus/>
-                <Icon type="submit" image="/icons/send.png" imageDark="/icons/sendDark.png"/>
+                <Icon type="submit" icon={faArrowRight}/>
             </form>
         </div>
     )

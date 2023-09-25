@@ -3,7 +3,7 @@ import styles from '/styles/Home.module.css';
 import Router from "next/router";
 
 import Image from 'next/image';
-import Button from '/components/button';
+import Button from '/components/button/button';
 import Link from "next/link";
 
 export default function LandingPage() {

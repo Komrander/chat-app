@@ -1,8 +1,8 @@
 import styles from './sidemenu.module.css';
-import {handleLeave} from "../services/apiCalls";
+import {handleLeave} from "/services/apiCalls";
 
-import Button from './button';
-import Profile from './profile';
+import Button from '/components/button/button';
+import Profile from '/components/profile/profile';
 
 export default function Sidemenu(props) {
 

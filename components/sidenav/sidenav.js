@@ -1,6 +1,6 @@
 import styles from './sidenav.module.css';
 
-import Profile from './profile';
+import Profile from '/components/profile/profile';
 import Link from 'next/link';
 
 export default function Sidenav(props) {

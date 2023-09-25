@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './popup.module.css';
 import { signOut } from "next-auth/react";
 
-import {handleAddGroup, handleAddDirect, handleInvite, handleChangeName, handleChangePassword} from "../services/apiCalls";
+import {handleAddGroup, handleAddDirect, handleInvite, handleChangeName, handleChangePassword} from "/services/apiCalls";
 
-import Button from './button';
+import Button from '/components/button/button';
 
 export default function Popup(props) {
     let title;

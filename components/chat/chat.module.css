@@ -80,7 +80,7 @@
 }
 
 .userMessageBody {
-    background-color: var(--clr-primary-light);
+    background-color: var(--clr-primary-message);
     border-radius: 12px;
     padding: 0.5em;
     color: var(--clr-primary-text);

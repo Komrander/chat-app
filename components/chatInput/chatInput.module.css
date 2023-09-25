@@ -12,6 +12,7 @@
 
 .textarea {
     scrollbar-color: #757575 #b8b8b8;
+    color: var(--clr-background-text);
     background-color: transparent;
     border: none;
     resize: none;
@@ -20,6 +21,9 @@
     font-size: var(--fs-text);
     font-weight: 400;
     max-height: 50vh;
+    @media (prefers-color-scheme: dark) {
+        scrollbar-color: #757575 #3d3d3d;
+    }
 }
 
 .textarea::-webkit-scrollbar-thumb {

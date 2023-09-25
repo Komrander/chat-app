@@ -1,11 +1,9 @@
 import styles from './button.module.css';
 import React from 'react';
 
-import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Button(props) {
-    const [isDark, setIsDark] = React.useState(false);
-
     return (
         <button
         className={(props.style == "negative")?(styles.negative)
@@ -13,13 +11,11 @@ export default function Button(props) {
             :(props.style == "large")?(styles.large)
             :(props.style == "option")?(styles.option)
             :(styles.button)}
-        onMouseEnter={() => setIsDark(true)}
-        onMouseLeave={() => setIsDark(false)}
         onClick={props.onClick}
         type={props.type}>
-            {(props.image && props.imageDark) &&
-            <Image width="12" height="12" alt="" className={styles.image} src={(isDark) ? (props.imageDark) : (props.image)}/>
-            }
+            {props.icon?
+                <FontAwesomeIcon className={styles.icon} icon={props.icon}/>
+            :null}
             {props.title}
         </button>
     )
