@@ -51,6 +51,7 @@
 }
 
 .showcase {
+  max-width: 100%;
   height: auto;
   padding-top: 2rem;
   margin-left: auto;
