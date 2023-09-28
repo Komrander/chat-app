@@ -1,12 +1,20 @@
-import React from 'react';
-import styles from './popup.module.css';
+import React from "react";
+import styles from "./popup.module.css";
 import { signOut } from "next-auth/react";
 
-import {handleAddGroup, handleAddDirect, handleInvite, handleChangeName, handleChangePassword} from "/services/apiCalls";
+import {handleAddGroup, handleAddDirect, handleInvite, handleChangeName, handleChangePassword} from "@/services/apiCalls";
 
-import Button from '/components/button/button';
+import Button from "@/components/button/button";
 
-export default function Popup(props) {
+interface PopupProps {
+    display: string;
+    setPopupState: (state: string) => void;
+    title?: string;
+    content?: string;
+    chatId: number;
+}
+
+export default function Popup(props: PopupProps) {
     let title;
     let content;
 
@@ -52,7 +60,7 @@ export default function Popup(props) {
         case "invite":
             title = "Send invite";
             content = <>
-                <form onSubmit={(e) => {e.preventDefault(); handleInvite(e.target.email.value); props.setPopupState("none")}}>
+                <form onSubmit={(e) => {e.preventDefault(); handleInvite(e.target.email.value, props.chatId); props.setPopupState("none")}}>
                     <div className={styles.innerContainer}>
                         <input className={styles.input} name="email" type="email" placeholder="Email"></input>
                     </div>

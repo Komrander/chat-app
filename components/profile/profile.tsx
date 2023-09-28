@@ -1,7 +1,12 @@
-import styles from './profile.module.css';
-import React from 'react';
+import styles from "./profile.module.css";
+import React from "react";
 
-export default function Profile(props) {
+interface ProfileProps {
+    style: "large" | "full" | "medium" | "small";
+    name: string;
+}
+
+export default function Profile(props: ProfileProps) {
     const letter = props.name.charAt(0);
 
     switch (props.style) {
@@ -33,8 +38,6 @@ export default function Profile(props) {
                 </button>
             )
         default:
-            return (
-                <p>no style specified</p>
-            )
+            return;
     }
 }

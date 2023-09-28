@@ -19,23 +19,25 @@ import Button from "@/components/button/button";
 import Icon from "@/components/icon/icon";
 import ChatInput from "@/components/chatInput/chatInput";
 
+import { FullChat } from "@/types/types";
+
 interface HomepageProps {
-    chats: object;
-    chat: object;
-    id: number;
+    chats: FullChat[];
+    chat: FullChat;
+    chatId: number;
     userId: number;
     username: string;
     chatName: string;
 }
 
-export default function Homepage(props:HomepageProps) {
+export default function Homepage(props: HomepageProps) {
     const [popupDisplay, setPopupDisplay] = useState("none");
 
     return (
         <div className={styles.wrapper}>
-            <Popup display={popupDisplay} setPopupState={setPopupDisplay}/>
+            <Popup display={popupDisplay} setPopupState={setPopupDisplay} chatId={props.chatId}/>
             <div className={styles.container}>
-                <Sidenav chats={props.chats} id={props.id}>
+                <Sidenav chats={props.chats} id={props.chatId}>
                     <Button onClick={() => setPopupDisplay("add")} title="Add" icon={faPlus}/>
                 </Sidenav>
                 <div className={styles.main}>
@@ -44,8 +46,8 @@ export default function Homepage(props:HomepageProps) {
                     </Header>
                     <div className={styles.chatContainer}>
                         <div className={styles.innerChatContainer}>
-                            <Chat chat={props.chat} id={props.id} userId={props.userId}/>
-                            <ChatInput chatName={props.chatName}/>
+                            <Chat chat={props.chat} id={props.chatId} userId={props.userId}/>
+                            <ChatInput chatName={props.chatName} chatId={props.chatId}/>
                         </div>
                         <Sidemenu chat={props.chat} chatName={props.chatName}>
                             <Button onClick={() => setPopupDisplay("invite")} title="Invite user"/>
@@ -155,7 +157,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         props: {
             chats: JSON.parse(JSON.stringify(user.chats)),
             chat: JSON.parse(JSON.stringify(chat)),
-            id: id,
+            chatId: id,
             userId: user.id,
             username: user.name,
             chatName: chatName,

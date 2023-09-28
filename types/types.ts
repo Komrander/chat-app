@@ -1,0 +1,18 @@
+import { ChatType, User } from "@prisma/client";
+
+export type Message = {
+    id: number;
+    content: string;
+    date: Date;
+    chatId: number;
+    userId: number;
+    user: User;
+}
+
+export type FullChat = {
+    id: number;
+    name: string;
+    type: ChatType;
+    participants: User[];
+    messages: Message[];
+}

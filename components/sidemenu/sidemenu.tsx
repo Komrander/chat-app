@@ -1,10 +1,18 @@
-import styles from './sidemenu.module.css';
-import {handleLeave} from "/services/apiCalls";
+import styles from "./sidemenu.module.css";
+import {handleLeave} from "@/services/apiCalls";
 
-import Button from '/components/button/button';
-import Profile from '/components/profile/profile';
+import Button from "@/components/button/button";
+import Profile from "@/components/profile/profile";
 
-export default function Sidemenu(props) {
+import { FullChat } from "@/types/types";
+
+interface SidemenuProps {
+    chatName: string;
+    chat: FullChat;
+    children: React.ReactNode;
+}
+
+export default function Sidemenu(props: SidemenuProps) {
 
     return (
         <div className={styles.container}>

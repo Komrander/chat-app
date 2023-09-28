@@ -9,8 +9,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const body = req.body;
     const session = await getServerSession(req, res, authOptions);
 
-    if (!body?.id || !session?.user?.email) {
-        return res.status(400);
+    if (!body?.chatId || !session?.user?.email) {
+        return res.status(400).json({ data: "Missing data" });
     }
 
     const user = await prisma.user.findUnique({
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     })
 
     if (!user) {
-        return res.status(500);
+        return res.status(500).json({ data: "Couldn't find user" });
     }
 
     const chat = await prisma.chat.findFirst({
@@ -33,13 +33,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
         },
         include: {
-            participants: {
-                select: {
-                    id: true,
-                    name: true,
-                    email: true,
-                },
-            },
             messages: {
                 orderBy: {
                     date: "desc",
@@ -55,8 +48,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
     })
   
-    if (!session || !chat ) {
-      return res.status(404);
+    if (!chat ) {
+      return res.status(500).json({ data: "Couldn't find chat" });
     }
 
     res.status(200).json(chat);

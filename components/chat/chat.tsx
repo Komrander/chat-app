@@ -1,33 +1,29 @@
-import styles from './chat.module.css';
-import React, {useState} from 'react';
+import styles from "./chat.module.css";
+import { useState, useEffect } from "react";
 
-import Profile from '/components/profile/profile';
+import Profile from "@/components/profile/profile";
 
-export default function Chat(props) {
+import { handleFetchChat } from "@/services/apiCalls";
+
+import { FullChat } from "@/types/types";
+
+import { getTimeString } from "@/utils/date";
+
+interface ChatProps {
+    chat: FullChat;
+    id: number;
+    userId: number;
+}
+
+export default function Chat(props:ChatProps) {
     const [chat, setChat] = useState(props.chat);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setChat(props.chat);
         const interval = setInterval(async ()=>{
-            try {
-                const response = await fetch("/api/chat", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ id: props.id }),
-                });
-
-                const chatData = await response.json();
-                
-                if (response.status != 200) {
-                    throw new Error("Server response was not OK.");
-                } else {
-                    setChat(chatData);
-                }
-            } catch (err) {
-                console.log("Error while fetching data: "+err);
-                clearInterval(interval);
+            const chatData = await handleFetchChat(props.id);
+            if (chatData) {
+                setChat(chatData);
             }
         },3000)
 
@@ -35,29 +31,6 @@ export default function Chat(props) {
             clearInterval(interval);
         }
     }, [props.id, props.chat])
-
-    const currentDate = new Date();
-    const today = currentDate.setUTCHours(0,0,0,0);
-    const yesterday = currentDate.setDate(currentDate.getDate() -1);
-
-    function getTimeString(date) {
-        date = new Date(date);
-
-        const day = date.getDate().toString();
-        const month = (date.getMonth() + 1).toString();
-        const year = date.getFullYear().toString();
-
-        const hour = date.getHours().toString();
-        const minute = (date.getMinutes()<10?'0':'') + date.getMinutes().toString();
-        
-        if (today < date.getTime()) {
-            return ("today at " + hour + ":" + minute);
-        } else if (yesterday < date.getTime()) {
-            return ("yesterday at " + hour + ":" + minute);
-        } else {
-            return (day + "." + month + "." + year + " " + hour + ":" + minute);
-        }
-    }
 
     return (
         <div className={styles.container}>

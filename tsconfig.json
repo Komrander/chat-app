@@ -23,7 +23,9 @@
       "@/components/*": ["components/*"],
       "@/styles/*": ["styles/*"],
       "@/services/*": ["services/*"],
-      "@/lib/*": ["lib/*"]
+      "@/lib/*": ["lib/*"],
+      "@/types/*": ["types/*"],
+      "@/utils/*": ["utils/*"]
     },
     "typeRoots": ["types"]
   },
