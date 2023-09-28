@@ -1,9 +1,17 @@
-import styles from './button.module.css';
-import React from 'react';
+import styles from "./button.module.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-export default function Button(props) {
+interface ButtonProps {
+    title: string;
+    onClick?: () => void;
+    style?: "negative" | "grey" | "large" | "option";
+    type?: "button" | "submit" | "reset";
+    icon?: IconDefinition;
+}
+
+export default function Button(props:ButtonProps) {
     return (
         <button
         className={(props.style == "negative")?(styles.negative)

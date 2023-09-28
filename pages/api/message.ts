@@ -1,12 +1,17 @@
-import prisma from "../../lib/prismadb";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from '/pages/api/auth/[...nextauth]';
+import prisma from "@/lib/prisma";
 
-export default async function handler(req, res) {
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const body = req.body;
     const session = await getServerSession(req, res, authOptions);
-    const url = req.headers.referer.split("/");
-    const chatId = parseInt(url[url.length-1]);
+
+    if (!body?.chatId || !body?.message || !session?.user?.email ) {
+        return res.status(400).json({ data: "Missing data" });
+    }
 
     const user = await prisma.user.findUnique({
         where: {
@@ -14,9 +19,13 @@ export default async function handler(req, res) {
         },
     })
 
+    if (!user) {
+        return res.status(500);
+    }
+
     const chat = await prisma.chat.findFirst({
         where: {
-            id: chatId,
+            id: body.chatId,
             participants: {
                 some: {
                     id: user.id,
@@ -25,8 +34,8 @@ export default async function handler(req, res) {
         },
     })
   
-    if (!body.message || !session || !chat ) {
-      return res.status(400).json({ data: 'Missing data' });
+    if (!chat ) {
+        return res.status(500);
     }
 
     const messageContent = body.message.trim();
@@ -35,7 +44,7 @@ export default async function handler(req, res) {
         data: {
             content: messageContent,
             userId: user.id,
-            chatId: chat.id,
+            chatId: body.chatId,
         },
     })
   

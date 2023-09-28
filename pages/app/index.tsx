@@ -1,30 +1,39 @@
-import { authOptions } from '/pages/api/auth/[...nextauth]';
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import React, {useState} from 'react';
-import prisma from "/lib/prismadb";
 
-import {faGear, faPlus} from "@fortawesome/free-solid-svg-icons";
+import { GetServerSideProps } from "next";
+import { useState } from "react";
 
-import styles from '/styles/App.module.css';
+import prisma from "@/lib/prisma";
 
-import Header from '/components/header/header';
-import Sidenav from "/components/sidenav/sidenav";
-import Popup from "/components/popup/popup";
-import Button from "/components/button/button";
-import Icon from "/components/icon/icon";
+import { faGear, faPlus } from "@fortawesome/free-solid-svg-icons";
 
-export default function Homepage(props) {
+import styles from "@/styles/App.module.css";
+
+import Header from "@/components/header/header";
+import Sidenav from "@/components/sidenav/sidenav";
+import Popup from "@/components/popup/popup";
+import Button from "@/components/button/button";
+import Icon from "@/components/icon/icon";
+
+interface HomepageProps {
+    chats: object;
+    userId: number;
+    username: string;
+}
+
+export default function Homepage(props:HomepageProps) {
     const [popupDisplay, setPopupDisplay] = useState("none");
-
+    
     return (
         <div className={styles.wrapper}>
             <Popup display={popupDisplay} setPopupState={setPopupDisplay}/>
             <div className={styles.container}>
-                <Sidenav chats={props.chats} id={props.id}>
+                <Sidenav chats={props.chats}>
                     <Button onClick={() => setPopupDisplay("add")} title="Add" icon={faPlus}/>
                 </Sidenav>
                 <div className={styles.main}>
-                    <Header chat={props.chat}>
+                    <Header>
                         <Icon onClick={() => setPopupDisplay("settings")} icon={faGear}/>
                     </Header>
                     <div className={styles.welcomeContainer}>
@@ -41,20 +50,22 @@ export default function Homepage(props) {
     )
 }
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getServerSession(context.req, context.res, authOptions);
 
-    if (!session) {
+    if (!session?.user?.email) {
         return {
             redirect: {
-                destination: '/',
+                destination: "/",
                 permanent: false,
             },
         }
     }
 
+    const email = session.user.email as string;
+
     const user = await prisma.user.findUnique({
-        where: { email: session.user.email },
+        where: { email: email },
         include: {
             chats: {
                 include: {
@@ -67,7 +78,7 @@ export async function getServerSideProps(context) {
                     participants: {
                         where: {
                             NOT: {
-                                email: session.user.email,
+                                email: email,
                             },
                         },
                         select: {
@@ -80,11 +91,20 @@ export async function getServerSideProps(context) {
         },
     })
 
-    return {
-        props: {
-            chats: JSON.parse(JSON.stringify(user.chats)),
-            userId: user.id,
-            username: user.name,
+    if (user) {
+        return {
+            props: {
+                chats: JSON.parse(JSON.stringify(user.chats)),
+                userId: user.id,
+                username: user.name,
+            }
+        }
+    } else {
+        return {
+            redirect: {
+                destination: "/",
+                permanent: false,
+            },
         }
     }
 }

@@ -1,10 +1,14 @@
 import NextAuth from "next-auth";
+import type { NextAuthOptions, User } from "next-auth";
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "/lib/prismadb";
-var bcrypt = require('bcrypt');
 
-export const authOptions = {
+import prisma from "@/lib/prisma";
+
+import bcrypt from "bcrypt";
+
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -14,7 +18,10 @@ export const authOptions = {
         email: { label: "Email", type: "email"},
         password: {  label: "Password", type: "password" }
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
+        if (!credentials || !credentials.email || !credentials.password) {
+          return null;
+        }
 
         const user = await prisma.user.findUnique({
           where: {
@@ -22,7 +29,7 @@ export const authOptions = {
           }
         });
 
-        if (user == null)
+        if (!user)
         {
           return null;
         }
@@ -30,7 +37,7 @@ export const authOptions = {
         const isValid = await bcrypt.compare(credentials.password, user.password)
 
         if (isValid) {
-          return {email: user.email};
+          return {email: user.email} as User;
         }
         else
         {

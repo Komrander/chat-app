@@ -1,10 +1,17 @@
-import prisma from "../../lib/prismadb";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from '/pages/api/auth/[...nextauth]';
+import prisma from "@/lib/prisma";
 
-export default async function handler(req, res) {
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const body = req.body;
     const session = await getServerSession(req, res, authOptions);
-    const chatId = req.body.chatId;
+
+    if (!body?.chatId || !session?.user?.email ) {
+        return res.status(400).json({ data: "Missing data" });
+    }
 
     const user = await prisma.user.findUnique({
         where: {
@@ -12,9 +19,13 @@ export default async function handler(req, res) {
         },
     })
 
+    if (!user) {
+        return res.status(500);
+    }
+
     const chat = await prisma.chat.findFirst({
         where: {
-            id: chatId,
+            id: body.chatId,
             participants: {
                 some: {
                     id: user.id,
@@ -24,20 +35,20 @@ export default async function handler(req, res) {
         include: { participants: true },
     })
   
-    if (!session || !chat ) {
-      return res.status(400).json({ data: 'Missing data' });
+    if (!chat) {
+        return res.status(500);
     }
 
     if (chat.type == "DIRECT" || chat.participants.length == 1) {
-        const deleteChat = await prisma.chat.delete({
+        await prisma.chat.delete({
             where: {
-                id: chatId,
+                id: body.chatId,
             },
         })
     } else if (chat.type == "GROUP") {
-        const updateChat = await prisma.chat.update({
+        await prisma.chat.update({
             where: {
-                id: chatId,
+                id: body.chatId,
             },
             data: {
                 participants: {

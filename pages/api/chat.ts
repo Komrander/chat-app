@@ -1,13 +1,16 @@
-import prisma from "../../lib/prismadb";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from '/pages/api/auth/[...nextauth]';
+import prisma from "@/lib/prisma";
 
-export default async function handler(req, res) {
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const body = req.body;
     const session = await getServerSession(req, res, authOptions);
 
-    if (!body) {
-        return req.status(400);
+    if (!body?.id || !session?.user?.email) {
+        return res.status(400);
     }
 
     const user = await prisma.user.findUnique({
@@ -16,9 +19,13 @@ export default async function handler(req, res) {
         },
     })
 
+    if (!user) {
+        return res.status(500);
+    }
+
     const chat = await prisma.chat.findFirst({
         where: {
-            id: parseInt(body.id),
+            id: body.id,
             participants: {
                 some: {
                     id: user.id,

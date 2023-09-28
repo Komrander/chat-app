@@ -1,22 +1,34 @@
-import { authOptions } from "/pages/api/auth/[...nextauth]";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
-import React, {useState} from "react";
-import prisma from "/lib/prismadb";
+
+import { GetServerSideProps } from "next";
+import { useState } from "react";
+
+import prisma from "@/lib/prisma";
 
 import {faGear, faPlus} from "@fortawesome/free-solid-svg-icons";
 
-import styles from "/styles/App.module.css";
+import styles from "@/styles/App.module.css";
 
-import Header from "/components/header/header";
-import Sidenav from "/components/sidenav/sidenav";
-import Sidemenu from "/components/sidemenu/sidemenu";
-import Chat from "/components/chat/chat";
-import Popup from "/components/popup/popup";
-import Button from "/components/button/button";
-import Icon from "/components/icon/icon";
-import ChatInput from "/components/chatInput/chatInput";
+import Header from "@/components/header/header";
+import Sidenav from "@/components/sidenav/sidenav";
+import Sidemenu from "@/components/sidemenu/sidemenu";
+import Chat from "@/components/chat/chat";
+import Popup from "@/components/popup/popup";
+import Button from "@/components/button/button";
+import Icon from "@/components/icon/icon";
+import ChatInput from "@/components/chatInput/chatInput";
 
-export default function Homepage(props) {
+interface HomepageProps {
+    chats: object;
+    chat: object;
+    id: number;
+    userId: number;
+    username: string;
+    chatName: string;
+}
+
+export default function Homepage(props:HomepageProps) {
     const [popupDisplay, setPopupDisplay] = useState("none");
 
     return (
@@ -45,11 +57,10 @@ export default function Homepage(props) {
     )
 }
 
-export async function getServerSideProps(context) {
-    const { id } = context.query;
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getServerSession(context.req, context.res, authOptions);
 
-    if (!session) {
+    if (!session?.user?.email || typeof(context.query.id) !== "string") {
         return {
             redirect: {
                 destination: "/",
@@ -58,8 +69,11 @@ export async function getServerSideProps(context) {
         }
     }
 
+    const id = parseInt(context.query.id);
+    const email = session.user.email as string;
+
     const user = await prisma.user.findUnique({
-        where: { email: session.user.email },
+        where: { email: email },
         include: {
             chats: {
                 include: {
@@ -72,7 +86,7 @@ export async function getServerSideProps(context) {
                     participants: {
                         where: {
                             NOT: {
-                                email: session.user.email,
+                                email: email,
                             },
                         },
                         select: {
@@ -85,9 +99,13 @@ export async function getServerSideProps(context) {
         },
     })
 
+    if (!user) {
+        return { notFound: true };
+    }
+
     const chat = await prisma.chat.findFirst({
         where: { 
-            id: parseInt(id),
+            id: id,
             participants: {
                 some: {
                     id: user.id,
@@ -122,8 +140,8 @@ export async function getServerSideProps(context) {
     }
 
     
-    var chatName;
-    if (chat.type == "DIRECT") {
+    let chatName;
+    if (chat.type === "DIRECT") {
         if (chat.participants[0].email == session.user.email) {
             chatName = chat.participants[1].name;
         } else {

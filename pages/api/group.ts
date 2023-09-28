@@ -1,13 +1,16 @@
-import prisma from "../../lib/prismadb";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from '/pages/api/auth/[...nextauth]';
+import prisma from "@/lib/prisma";
 
-export default async function handler(req, res) {
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const body = req.body;
     const session = await getServerSession(req, res, authOptions);
   
-    if (!body.name || !session ) {
-      return res.status(400).json({ data: 'Missing data' });
+    if (!body?.name || !session?.user?.email ) {
+      return res.status(400).json({ data: "Missing data" });
     }
 
     const chat = await prisma.chat.create({

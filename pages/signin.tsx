@@ -1,12 +1,15 @@
 import styles from "/styles/form.module.css";
+import { useState } from "react";
 
-import {handleSignIn} from "/services/apiCalls";
+import { handleSignIn } from "@/services/apiCalls";
 
 import Image from 'next/image';
-import Button from "/components/button/button";
+import Button from "@/components/button/button";
 import Link from "next/link";
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div className={styles.wrapper}>
@@ -19,9 +22,12 @@ export default function SignIn() {
       </div>
       <div className={styles.container}>
         <h1 className={styles.title}>Welcome back!</h1>
-        <form className={styles.formContainer} onSubmit={(e) => {e.preventDefault(), handleSignIn(e.target.email.value, e.target.password.value, "/app")}}>
-          <input className={styles.input} name="email" type="email" placeholder="Email"/>
-          <input className={styles.input} name="password" type="password" placeholder="Password"/>
+        <form className={styles.formContainer} onSubmit={(e) => {
+          e.preventDefault();
+          handleSignIn(email, password, "/app")
+        }}>
+          <input className={styles.input} name="email" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <input className={styles.input} name="password" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <Button type="submit" title="Login"/>
         </form>
         <div className={styles.textContainer}>
