@@ -30,7 +30,7 @@ export default function Popup(props: PopupProps) {
         case "addGroup":
             title = "Create a new group";
             content = <>
-                <form onSubmit={(e) => {e.preventDefault(); handleAddGroup(e.target.name.value); props.setPopupState("none")}}>
+                <form onSubmit={(e: any) => {e.preventDefault(); handleAddGroup(e.target.name.value); props.setPopupState("none")}}>
                     <div className={styles.innerContainer}>
                         <input className={styles.input} name="name" type="text" placeholder="Group name"></input>
                     </div>
@@ -44,7 +44,7 @@ export default function Popup(props: PopupProps) {
         case "addDirect":
             title = "Start new direct chat";
             content = <>
-                <form onSubmit={(e) => {e.preventDefault(); handleAddDirect(e.target.email.value); props.setPopupState("none")}}>
+                <form onSubmit={(e: any) => {e.preventDefault(); handleAddDirect(e.target.email.value); props.setPopupState("none")}}>
                     <div className={styles.innerContainer}>
                         <input className={styles.input} name="email" type="email" placeholder="Email"></input>
                     </div>
@@ -58,7 +58,7 @@ export default function Popup(props: PopupProps) {
         case "invite":
             title = "Send invite";
             content = <>
-                <form onSubmit={(e) => {e.preventDefault(); handleInvite(e.target.email.value, props.chatId); props.setPopupState("none")}}>
+                <form onSubmit={(e: any) => {e.preventDefault(); handleInvite(e.target.email.value, props.chatId); props.setPopupState("none")}}>
                     <div className={styles.innerContainer}>
                         <input className={styles.input} name="email" type="email" placeholder="Email"></input>
                     </div>
@@ -72,7 +72,7 @@ export default function Popup(props: PopupProps) {
         case "changeName":
             title = "Change username";
             content = <>
-                <form onSubmit={(e) => {e.preventDefault(); handleChangeName(e.target.name.value); props.setPopupState("none")}}>
+                <form onSubmit={(e: any) => {e.preventDefault(); handleChangeName(e.target.name.value); props.setPopupState("none")}}>
                     <div className={styles.innerContainer}>
                         <input className={styles.input} name="name" type="text" placeholder="New username"></input>
                     </div>
@@ -86,7 +86,7 @@ export default function Popup(props: PopupProps) {
         case "changePassword":
             title = "Change password";
             content = <>
-                <form onSubmit={(e) => {e.preventDefault(); handleChangePassword(e.target.oldPassword.value, e.target.newPassword.value); props.setPopupState("none")}}>
+                <form onSubmit={(e: any) => {e.preventDefault(); handleChangePassword(e.target.oldPassword.value, e.target.newPassword.value); props.setPopupState("none")}}>
                     <div className={styles.innerContainer}>
                         <input className={styles.input} name="oldPassword" type="password" placeholder="Old password"></input>
                         <input className={styles.input} name="newPassword" type="password" placeholder="New password"></input>
