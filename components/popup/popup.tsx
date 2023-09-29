@@ -9,8 +9,6 @@ import Button from "@/components/button/button";
 interface PopupProps {
     display: string;
     setPopupState: (state: string) => void;
-    title?: string;
-    content?: string;
     chatId: number;
 }
 
@@ -112,13 +110,7 @@ export default function Popup(props: PopupProps) {
             </>;
             break;
         default:
-            title = props.title ?? "Title";
-            content = <>
-                <div className={styles.innerContainer}>
-                    <p>{props.content ?? "Content"}</p>
-                </div>
-                <Button style="grey" onClick={() => props.setPopupState("none")} title="Cancel"/>
-            </>;
+            content = <></>;
             break;
     }
 

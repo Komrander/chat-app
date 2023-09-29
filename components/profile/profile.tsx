@@ -38,6 +38,6 @@ export default function Profile(props: ProfileProps) {
                 </button>
             )
         default:
-            return;
+            return <></>
     }
 }
