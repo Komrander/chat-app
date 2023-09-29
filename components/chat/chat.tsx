@@ -1,0 +1,68 @@
+import styles from "./chat.module.css";
+import { useState, useEffect } from "react";
+
+import Profile from "@/components/profile/profile";
+
+import { handleFetchChat } from "@/services/apiCalls";
+
+import { FullChat } from "@/types/types";
+
+import { getTimeString } from "@/utils/date";
+
+interface ChatProps {
+    chat: FullChat;
+    id: number;
+    userId: number;
+}
+
+export default function Chat(props:ChatProps) {
+    const [chat, setChat] = useState(props.chat);
+
+    useEffect(() => {
+        setChat(props.chat);
+        const interval = setInterval(async ()=>{
+            const chatData = await handleFetchChat(props.id);
+            if (chatData) {
+                setChat(chatData);
+            }
+        },3000)
+
+        return () => {
+            clearInterval(interval);
+        }
+    }, [props.id, props.chat])
+
+    return (
+        <div className={styles.container}>
+            <div className={styles.messageContainer}>
+                {chat.messages.map(message =>
+                    (message.userId == props.userId)?(
+                        <div key={message.id} className={styles.userMessage}>
+                            <div className={styles.userMessageContainer}>
+                                <h1 className={styles.userMessageDate}>{getTimeString(message.date)}</h1>
+                                <div className={styles.userMessageBody}>
+                                    <pre className={styles.messageText}>{message.content}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    ):(
+                        <div key={message.id} className={styles.responseMessage}>
+                            <div className={styles.profileContainer}>
+                                <Profile name={message.user.name} style="medium"/>
+                            </div>
+                            <div className={styles.responseMessageContainer}>
+                                <div className={styles.responseMessageHeader}>
+                                    <h1 className={styles.responseMessageName}>{message.user.name}</h1>
+                                    <h1 className={styles.responseMessageDate}>{getTimeString(message.date)}</h1>
+                                </div>
+                                <div className={styles.responseMessageBody}>
+                                    <pre className={styles.messageText}>{message.content}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                )}
+            </div>
+        </div>
+    )
+}

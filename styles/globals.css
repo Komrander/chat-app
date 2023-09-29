@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
 :root {
   --max-width: 1128px;
   --side-padding: 2rem;
@@ -80,9 +82,9 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
   scrollbar-width: thin;
   scrollbar-color: #E0E0E0 transparent;
+  font-family: "Roboto", sans-serif;
   @media (prefers-color-scheme: dark) {
     scrollbar-color: #2E3130 transparent;
   }
@@ -97,7 +99,7 @@
   background: var(--clr-background-dark);
 }
 
-html,
+html ,
 body {
   max-width: 100vw;
   height: 100vh;

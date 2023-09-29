@@ -39,4 +39,7 @@ model Message {
   chatId        Int
   user          User        @relation(fields: [userId], references: [id])
   userId        Int
+
+  @@index([chatId])
+  @@index([userId])
 }
