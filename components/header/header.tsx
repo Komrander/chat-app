@@ -2,9 +2,9 @@ import { Chat } from "@prisma/client";
 import styles from "./header.module.css";
 
 interface HeaderProps {
-    chatName: string;
-    chat: Chat;
-    children: React.ReactNode;
+    chatName?: string;
+    chat?: Chat;
+    children?: React.ReactNode;
 }
 
 export default function Header(props: HeaderProps) {

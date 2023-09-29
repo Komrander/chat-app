@@ -10,7 +10,7 @@ import { FullChat } from "@/types/types";
 interface SidenavProps {
     children: React.ReactNode;
     chats: FullChat[];
-    id: number;
+    id?: number;
 }
 
 export default function Sidenav(props: SidenavProps) {

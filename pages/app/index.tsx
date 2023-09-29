@@ -16,8 +16,10 @@ import Popup from "@/components/popup/popup";
 import Button from "@/components/button/button";
 import Icon from "@/components/icon/icon";
 
+import { FullChat } from "@/types/types";
+
 interface HomepageProps {
-    chats: object;
+    chats: FullChat[];
     userId: number;
     username: string;
 }

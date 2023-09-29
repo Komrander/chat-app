@@ -9,7 +9,7 @@ import Button from "@/components/button/button";
 interface PopupProps {
     display: string;
     setPopupState: (state: string) => void;
-    chatId: number;
+    chatId?: number;
 }
 
 export default function Popup(props: PopupProps) {
@@ -58,7 +58,7 @@ export default function Popup(props: PopupProps) {
         case "invite":
             title = "Send invite";
             content = <>
-                <form onSubmit={(e: any) => {e.preventDefault(); handleInvite(e.target.email.value, props.chatId); props.setPopupState("none")}}>
+                <form onSubmit={(e: any) => {e.preventDefault(); if (props.chatId) {handleInvite(e.target.email.value, props.chatId)}; props.setPopupState("none")}}>
                     <div className={styles.innerContainer}>
                         <input className={styles.input} name="email" type="email" placeholder="Email"></input>
                     </div>
