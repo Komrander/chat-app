@@ -16,3 +16,7 @@ export type FullChat = {
     participants: User[];
     messages: Message[];
 }
+
+export type PopupDisplay =
+    "add" | "addGroup" | "addDirect" | "invite" |
+    "changeName" | "changePassword" | "settings" | "none";
