@@ -64,7 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         useTLS: true,
     });
 
-    pusher.trigger(body.chatId.toString(), "message", {
+    await pusher.trigger(body.chatId.toString(), "message", {
         message: JSON.stringify(message),
     })
   
