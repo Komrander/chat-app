@@ -5,7 +5,6 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -19,16 +18,35 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/pages/*": ["pages/*"],
-      "@/components/*": ["components/*"],
-      "@/styles/*": ["styles/*"],
-      "@/services/*": ["services/*"],
-      "@/lib/*": ["lib/*"],
-      "@/types/*": ["types/*"],
-      "@/utils/*": ["utils/*"],
-      "@/contexts/*": ["contexts/*"]
+      "@/pages/*": [
+        "pages/*"
+      ],
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/styles/*": [
+        "styles/*"
+      ],
+      "@/services/*": [
+        "services/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/types/*": [
+        "types/*"
+      ],
+      "@/utils/*": [
+        "utils/*"
+      ],
+      "@/contexts/*": [
+        "contexts/*"
+      ]
     },
-    "typeRoots": ["types"]
+    "typeRoots": [
+      "types"
+    ],
+    "allowJs": true
   },
   "include": [
     "next-env.d.ts",

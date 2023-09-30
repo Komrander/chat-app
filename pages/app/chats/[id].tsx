@@ -36,12 +36,12 @@ export default function Homepage(props: HomepageProps) {
             <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
                 <Popup chatId={props.chatId}/>
                 <div className={styles.container}>
-                    <Sidenav chats={props.chats} id={props.chatId}/>
+                    <Sidenav chats={props.chats} chatId={props.chatId}/>
                     <div className={styles.main}>
                         <Header chat={props.chat} chatName={props.chatName}/>
                         <div className={styles.chatContainer}>
                             <div className={styles.innerChatContainer}>
-                                <Chat chat={props.chat} id={props.chatId} userId={props.userId}/>
+                                <Chat messages={props.chat.messages} chatId={props.chatId} userId={props.userId}/>
                                 <ChatInput chatName={props.chatName} chatId={props.chatId}/>
                             </div>
                             <Sidemenu chat={props.chat} chatName={props.chatName}/>
@@ -127,6 +127,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                         },
                     },
                 },
+                take: 50,
             },
         },
     })

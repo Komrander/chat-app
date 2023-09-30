@@ -166,24 +166,3 @@ export async function handleRegister(email: string, name: string, password: stri
 export async function handleSignIn(email: string, password: string, callbackUrl: string) {
   signIn("credentials", { email: email, password: password, callbackUrl: callbackUrl });
 }
-
-export async function handleFetchChat(chatId: number) {
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ chatId: chatId }),
-    });
-    const result = await res.json();
-
-    if (res.status === 200) {
-      return result;
-    } else {
-      throw new Error(result.data);
-    }
-  } catch (e) {
-    console.log(e);
-  }
-}

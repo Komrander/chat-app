@@ -1,41 +1,58 @@
 import styles from "./chat.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Profile from "@/components/profile/profile";
 
-import { handleFetchChat } from "@/services/apiCalls";
+import Pusher, { Channel } from "pusher-js";
 
-import { FullChat } from "@/types/types";
+import { Message } from "@/types/types";
 
 import { getTimeString } from "@/utils/date";
 
+const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
+    cluster: "eu",
+});
+
 interface ChatProps {
-    chat: FullChat;
-    id: number;
+    messages: Message[];
+    chatId: number;
     userId: number;
 }
 
 export default function Chat(props:ChatProps) {
-    const [chat, setChat] = useState(props.chat);
+    const [messages, setMessages] = useState(props.messages);
+    let channel = useRef<Channel>()
 
     useEffect(() => {
-        setChat(props.chat);
-        const interval = setInterval(async ()=>{
-            const chatData = await handleFetchChat(props.id);
-            if (chatData) {
-                setChat(chatData);
-            }
-        },3000)
+        setMessages(props.messages);
 
-        return () => {
-            clearInterval(interval);
+        channel.current = pusher.subscribe(props.chatId.toString());
+
+        return (() => {
+            pusher.unsubscribe(props.chatId.toString());
+        })
+    }, [props.messages, props.chatId])
+
+    useEffect(() => {
+        if (channel.current) {
+            channel.current.bind("message", (data: any) => {
+                const parsedMessage = JSON.parse(data.message);
+                
+                setMessages((prev) => [parsedMessage, ...prev]);
+            });
         }
-    }, [props.id, props.chat])
+
+        return (() => {
+            if (channel.current) {
+                channel.current.unbind();
+            }
+        })
+    }, [messages]);
 
     return (
         <div className={styles.container}>
             <div className={styles.messageContainer}>
-                {chat.messages.map(message =>
+                {messages.map(message =>
                     (message.userId == props.userId)?(
                         <div key={message.id} className={styles.userMessage}>
                             <div className={styles.userMessageContainer}>

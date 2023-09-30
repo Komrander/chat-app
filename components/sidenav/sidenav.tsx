@@ -14,7 +14,7 @@ import { FullChat } from "@/types/types";
 
 interface SidenavProps {
     chats: FullChat[];
-    id?: number;
+    chatId?: number;
 }
 
 export default function Sidenav(props: SidenavProps) {
@@ -28,7 +28,7 @@ export default function Sidenav(props: SidenavProps) {
             </div>
             {props.chats.map(chat =>
                 <Link href={`/app/chats/${encodeURIComponent(chat.id)}`} key={chat.id}>
-                    <div className={(chat.id == props.id)?(styles.navButtonHighlight):(styles.navButton)}>
+                    <div className={(chat.id == props.chatId)?(styles.navButtonHighlight):(styles.navButton)}>
                         <Profile name={(chat.type == "GROUP")?(chat.name):(chat.participants[0].name)}
                         style="medium"/>
                         <div className={styles.navButtonContainer}>
