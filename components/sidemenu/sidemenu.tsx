@@ -1,6 +1,9 @@
 import styles from "./sidemenu.module.css";
 import {handleLeave} from "@/services/apiCalls";
 
+import { useContext } from "react";
+import { PopupContext, PopupContextType } from "@/contexts/popupContext";
+
 import Button from "@/components/button/button";
 import Profile from "@/components/profile/profile";
 
@@ -9,10 +12,10 @@ import { FullChat } from "@/types/types";
 interface SidemenuProps {
     chatName: string;
     chat: FullChat;
-    children: React.ReactNode;
 }
 
 export default function Sidemenu(props: SidemenuProps) {
+    const { setPopupDisplay } = useContext(PopupContext) as PopupContextType;
 
     return (
         <div className={styles.container}>
@@ -25,7 +28,7 @@ export default function Sidemenu(props: SidemenuProps) {
             {(props.chat.type == "GROUP")?(
                 <div>
                     <div className={styles.buttonContainer}>
-                        {props.children}
+                        <Button onClick={() => setPopupDisplay("invite")} title="Invite user"/>
                         <form onSubmit={(e) => {e.preventDefault(); handleLeave(props.chat.id)}}>
                             <Button type="submit" title="Leave group" style="negative"/>
                         </form>

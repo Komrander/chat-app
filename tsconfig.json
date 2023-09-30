@@ -25,7 +25,8 @@
       "@/services/*": ["services/*"],
       "@/lib/*": ["lib/*"],
       "@/types/*": ["types/*"],
-      "@/utils/*": ["utils/*"]
+      "@/utils/*": ["utils/*"],
+      "@/contexts/*": ["contexts/*"]
     },
     "typeRoots": ["types"]
   },

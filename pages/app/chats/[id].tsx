@@ -6,8 +6,6 @@ import { useState } from "react";
 
 import prisma from "@/lib/prisma";
 
-import {faGear, faPlus} from "@fortawesome/free-solid-svg-icons";
-
 import styles from "@/styles/App.module.css";
 
 import Header from "@/components/header/header";
@@ -15,11 +13,11 @@ import Sidenav from "@/components/sidenav/sidenav";
 import Sidemenu from "@/components/sidemenu/sidemenu";
 import Chat from "@/components/chat/chat";
 import Popup from "@/components/popup/popup";
-import Button from "@/components/button/button";
-import Icon from "@/components/icon/icon";
 import ChatInput from "@/components/chatInput/chatInput";
 
-import { FullChat } from "@/types/types";
+import { PopupContext } from "@/contexts/popupContext";
+
+import { FullChat, PopupDisplay } from "@/types/types";
 
 interface HomepageProps {
     chats: FullChat[];
@@ -31,30 +29,26 @@ interface HomepageProps {
 }
 
 export default function Homepage(props: HomepageProps) {
-    const [popupDisplay, setPopupDisplay] = useState("none");
+    const [popupDisplay, setPopupDisplay] = useState<PopupDisplay>("none");
 
     return (
         <div className={styles.wrapper}>
-            <Popup display={popupDisplay} setPopupState={setPopupDisplay} chatId={props.chatId}/>
-            <div className={styles.container}>
-                <Sidenav chats={props.chats} id={props.chatId}>
-                    <Button onClick={() => setPopupDisplay("add")} title="Add" icon={faPlus}/>
-                </Sidenav>
-                <div className={styles.main}>
-                    <Header chat={props.chat} chatName={props.chatName}>
-                        <Icon onClick={() => setPopupDisplay("settings")} icon={faGear}/>
-                    </Header>
-                    <div className={styles.chatContainer}>
-                        <div className={styles.innerChatContainer}>
-                            <Chat chat={props.chat} id={props.chatId} userId={props.userId}/>
-                            <ChatInput chatName={props.chatName} chatId={props.chatId}/>
+            <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
+                <Popup chatId={props.chatId}/>
+                <div className={styles.container}>
+                    <Sidenav chats={props.chats} id={props.chatId}/>
+                    <div className={styles.main}>
+                        <Header chat={props.chat} chatName={props.chatName}/>
+                        <div className={styles.chatContainer}>
+                            <div className={styles.innerChatContainer}>
+                                <Chat chat={props.chat} id={props.chatId} userId={props.userId}/>
+                                <ChatInput chatName={props.chatName} chatId={props.chatId}/>
+                            </div>
+                            <Sidemenu chat={props.chat} chatName={props.chatName}/>
                         </div>
-                        <Sidemenu chat={props.chat} chatName={props.chatName}>
-                            <Button onClick={() => setPopupDisplay("invite")} title="Invite user"/>
-                        </Sidemenu>
                     </div>
                 </div>
-            </div>
+            </PopupContext.Provider>
         </div>
     )
 }
