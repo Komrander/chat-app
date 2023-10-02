@@ -15,6 +15,8 @@ import Popup from "@/components/popup/popup";
 import { FullChat, PopupDisplay } from "@/types/types";
 import { PopupContext, PopupContextType } from "@/contexts/popupContext";
 
+import Head from "next/head";
+
 interface HomepageProps {
     chats: FullChat[];
     userId: number;
@@ -25,25 +27,30 @@ export default function Homepage(props:HomepageProps) {
     const [popupDisplay, setPopupDisplay] = useState<PopupDisplay>("none");
     
     return (
-        <div className={styles.wrapper}>
-            <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
-                <Popup/>
-                <div className={styles.container}>
-                    <Sidenav chats={props.chats}/>
-                    <div className={styles.main}>
-                        <Header/>
-                        <div className={styles.welcomeContainer}>
-                            <h1 className={styles.welcomeTitle}>Welcome, {props.username}!</h1>
-                            <p className={styles.welcomeText}>
-                                Start a new chat with the add button or select an existing chat on the left panel.
-                                <br/><br/>
-                                Use the settings icon to logout or change your name and password.
-                            </p>
+        <>
+            <Head>
+                <title>Dashboard</title>
+            </Head>
+            <div className={styles.wrapper}>
+                <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
+                    <Popup/>
+                    <div className={styles.container}>
+                        <Sidenav chats={props.chats}/>
+                        <div className={styles.main}>
+                            <Header/>
+                            <div className={styles.welcomeContainer}>
+                                <h1 className={styles.welcomeTitle}>Welcome, {props.username}!</h1>
+                                <p className={styles.welcomeText}>
+                                    Start a new chat with the add button or select an existing chat on the left panel.
+                                    <br/><br/>
+                                    Use the settings icon to logout or change your name and password.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </PopupContext.Provider>
-        </div>
+                </PopupContext.Provider>
+            </div>
+        </>
     )
 }
 
