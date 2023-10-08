@@ -13,17 +13,17 @@ import Sidenav from "@/components/sidenav/sidenav";
 import Popup from "@/components/popup/popup";
 
 import { FullChat, PopupDisplay } from "@/types/types";
-import { PopupContext, PopupContextType } from "@/contexts/popupContext";
+import { PopupContext } from "@/contexts/popupContext";
 
 import Head from "next/head";
 
-interface HomepageProps {
+interface DashboardPageProps {
     chats: FullChat[];
     userId: number;
     username: string;
 }
 
-export default function Homepage(props:HomepageProps) {
+export default function DashboardPage(props:DashboardPageProps) {
     const [popupDisplay, setPopupDisplay] = useState<PopupDisplay>("none");
     
     return (

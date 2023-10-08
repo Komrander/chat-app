@@ -6,7 +6,7 @@ export type Message = {
     date: Date;
     chatId: number;
     userId: number;
-    user: User;
+    user: { name: string };
 }
 
 export type FullChat = {

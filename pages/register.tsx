@@ -8,7 +8,7 @@ import Link from "next/link"
 import Image from "next/image";
 import Head from "next/head";
 
-export default function Form() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

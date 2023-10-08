@@ -11,7 +11,7 @@ import Link from "next/link";
 import Head from "next/head";
 
 export default function LandingPage() {
-    const {data:session, status} = useSession();
+    const {status} = useSession();
 
     return (
         <>

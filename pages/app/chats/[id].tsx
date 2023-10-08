@@ -20,7 +20,7 @@ import { PopupContext } from "@/contexts/popupContext";
 import { FullChat, PopupDisplay } from "@/types/types";
 import Head from "next/head";
 
-interface HomepageProps {
+interface ChatPageProps {
     chats: FullChat[];
     chat: FullChat;
     chatId: number;
@@ -29,7 +29,7 @@ interface HomepageProps {
     chatName: string;
 }
 
-export default function Homepage(props: HomepageProps) {
+export default function ChatPage(props: ChatPageProps) {
     const [popupDisplay, setPopupDisplay] = useState<PopupDisplay>("none");
 
     return (

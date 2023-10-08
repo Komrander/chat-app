@@ -20,7 +20,7 @@ export default function Button(props:ButtonProps) {
             :(props.style == "option")?(styles.option)
             :(styles.button)}
         onClick={props.onClick}
-        type={props.type}>
+        type={props.type??"button"}>
             {props.icon?
                 <FontAwesomeIcon className={styles.icon} icon={props.icon}/>
             :null}

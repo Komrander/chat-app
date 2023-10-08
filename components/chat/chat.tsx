@@ -56,9 +56,9 @@ export default function Chat(props:ChatProps) {
                     (message.userId == props.userId)?(
                         <div key={message.id} className={styles.userMessage}>
                             <div className={styles.userMessageContainer}>
-                                <h1 className={styles.userMessageDate}>{getTimeString(message.date)}</h1>
+                                <h2 className={styles.userMessageDate}>{getTimeString(message.date)}</h2>
                                 <div className={styles.userMessageBody}>
-                                    <pre className={styles.messageText}>{message.content}</pre>
+                                    <pre className={styles.messageText} role="paragraph">{message.content}</pre>
                                 </div>
                             </div>
                         </div>
@@ -70,10 +70,10 @@ export default function Chat(props:ChatProps) {
                             <div className={styles.responseMessageContainer}>
                                 <div className={styles.responseMessageHeader}>
                                     <h1 className={styles.responseMessageName}>{message.user.name}</h1>
-                                    <h1 className={styles.responseMessageDate}>{getTimeString(message.date)}</h1>
+                                    <h2 className={styles.responseMessageDate}>{getTimeString(message.date)}</h2>
                                 </div>
                                 <div className={styles.responseMessageBody}>
-                                    <pre className={styles.messageText}>{message.content}</pre>
+                                    <pre className={styles.messageText} role="paragraph">{message.content}</pre>
                                 </div>
                             </div>
                         </div>
