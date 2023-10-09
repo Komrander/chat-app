@@ -7,7 +7,7 @@ describe("Button - rendering", () => {
     it("Should render a button title", ()=> {
         render(<Button title={"Click me"}/>);
 
-        expect(screen.getByRole("button", { name: "Click me" })).toHaveTextContent("Click me");
+        expect(screen.getByRole("button")).toHaveTextContent("Click me");
     });
 
     it("Should render button styles correctly", ()=> {

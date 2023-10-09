@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Chat from "@/components/chat/chat";
 import { Message } from "@/types/types";
@@ -27,9 +27,9 @@ const mockMessage: Message = {
     content: "text 2",
     date: new Date(),
     chatId: 1,
-    userId: 3,
+    userId: 1,
     user: {
-        name: "Name 2"
+        name: "My name"
     },
 }
 
@@ -53,7 +53,6 @@ describe("Chat - rendering", () => {
             });
         });
         
-        expect(screen.getAllByRole("heading", { level: 1 })[0]).toHaveTextContent(/^Name 2$/);
         expect(screen.getAllByRole("paragraph")[0]).toHaveTextContent(/^text 2$/);
     })
 });

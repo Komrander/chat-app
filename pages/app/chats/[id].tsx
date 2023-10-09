@@ -43,7 +43,7 @@ export default function ChatPage(props: ChatPageProps) {
                     <div className={styles.container}>
                         <Sidenav chats={props.chats} chatId={props.chatId}/>
                         <div className={styles.main}>
-                            <Header chat={props.chat} chatName={props.chatName}/>
+                            <Header chatType={props.chat.type} chatName={props.chatName}/>
                             <div className={styles.chatContainer}>
                                 <div className={styles.innerChatContainer}>
                                     <Chat messages={props.chat.messages} chatId={props.chatId} userId={props.userId}/>

@@ -11,7 +11,7 @@ describe("Landing page - Rendering", () => {
             </SessionProvider>
         );
 
-        expect(screen.getByText("Open the application")).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "Open the application" })).toBeInTheDocument();
     });
 
     it("Renders as not authenticated", ()=> {
@@ -21,7 +21,7 @@ describe("Landing page - Rendering", () => {
             </SessionProvider>
         );
 
-        expect(screen.getByText("Login")).toBeInTheDocument();
-        expect(screen.getByText("Create an account")).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "Login" })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "Create an account" })).toBeInTheDocument();
     });
 });

@@ -15,7 +15,7 @@ export default function Icon(props: IconProps) {
     return (
         <button className={styles.button}
         onClick={props.onClick}
-        type={props.type}>
+        type={props.type??"button"}>
             <FontAwesomeIcon className={styles.icon} icon={props.icon}/>
         </button>
     )
