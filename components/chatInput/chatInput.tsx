@@ -40,12 +40,12 @@ export default function ChatInput(props: ChatInputProps) {
                 setMessage("");
             }}>
                 <TextareaAutosize
-                name="message"
-                className={styles.textarea}
-                placeholder={"Type a message to " + props.chatName + "..."}
-                onChange={(e) => setMessage(e.target.value)}
-                value={message}
-                autoFocus/>
+                    name="message"
+                    className={styles.textarea}
+                    placeholder={"Type a message to " + props.chatName + "..."}
+                    onChange={(e) => setMessage(e.target.value)}
+                    value={message}
+                    autoFocus/>
                 <Icon type="submit" icon={faArrowRight}/>
             </form>
         </div>

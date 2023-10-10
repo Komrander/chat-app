@@ -18,8 +18,9 @@ import ChatInput from "@/components/chatInput/chatInput";
 import { PopupContext } from "@/contexts/popupContext";
 
 import { FullChat, PopupDisplay } from "@/types/types";
+import Head from "next/head";
 
-interface HomepageProps {
+interface ChatPageProps {
     chats: FullChat[];
     chat: FullChat;
     chatId: number;
@@ -28,28 +29,33 @@ interface HomepageProps {
     chatName: string;
 }
 
-export default function Homepage(props: HomepageProps) {
+export default function ChatPage(props: ChatPageProps) {
     const [popupDisplay, setPopupDisplay] = useState<PopupDisplay>("none");
 
     return (
-        <div className={styles.wrapper}>
-            <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
-                <Popup chatId={props.chatId}/>
-                <div className={styles.container}>
-                    <Sidenav chats={props.chats} chatId={props.chatId}/>
-                    <div className={styles.main}>
-                        <Header chat={props.chat} chatName={props.chatName}/>
-                        <div className={styles.chatContainer}>
-                            <div className={styles.innerChatContainer}>
-                                <Chat messages={props.chat.messages} chatId={props.chatId} userId={props.userId}/>
-                                <ChatInput chatName={props.chatName} chatId={props.chatId}/>
+        <>
+            <Head>
+                <title>{props.chat.type === "GROUP"?props.chatName:"@"+props.chatName}</title>
+            </Head>
+            <div className={styles.wrapper}>
+                <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
+                    <Popup chatId={props.chatId}/>
+                    <div className={styles.container}>
+                        <Sidenav chats={props.chats} chatId={props.chatId}/>
+                        <div className={styles.main}>
+                            <Header chatType={props.chat.type} chatName={props.chatName}/>
+                            <div className={styles.chatContainer}>
+                                <div className={styles.innerChatContainer}>
+                                    <Chat messages={props.chat.messages} chatId={props.chatId} userId={props.userId}/>
+                                    <ChatInput chatName={props.chatName} chatId={props.chatId}/>
+                                </div>
+                                <Sidemenu chat={props.chat} chatName={props.chatName}/>
                             </div>
-                            <Sidemenu chat={props.chat} chatName={props.chatName}/>
                         </div>
                     </div>
-                </div>
-            </PopupContext.Provider>
-        </div>
+                </PopupContext.Provider>
+            </div>
+        </>
     )
 }
 

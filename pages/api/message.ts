@@ -56,17 +56,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
     })
 
-    const pusher = new Pusher({
-        appId: process.env.PUSHER_APP_ID,
-        key: process.env.NEXT_PUBLIC_PUSHER_KEY,
-        secret: process.env.PUSHER_SECRET,
-        cluster: "eu",
-        useTLS: true,
-    });
+    if (message) {
+        const pusher = new Pusher({
+            appId: process.env.PUSHER_APP_ID,
+            key: process.env.NEXT_PUBLIC_PUSHER_KEY,
+            secret: process.env.PUSHER_SECRET,
+            cluster: "eu",
+            useTLS: true,
+        });
 
-    await pusher.trigger(body.chatId.toString(), "message", {
-        message: JSON.stringify(message),
-    })
+        await pusher.trigger(body.chatId.toString(), "message", {
+            message: JSON.stringify(message),
+        })
+    }
   
     res.status(200).json({ success: "success" });
 }

@@ -43,9 +43,6 @@
         "contexts/*"
       ]
     },
-    "typeRoots": [
-      "types"
-    ],
     "allowJs": true
   },
   "include": [

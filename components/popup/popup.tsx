@@ -59,7 +59,7 @@ export default function Popup(props: PopupProps) {
         case "invite":
             title = "Send invite";
             content = <>
-                <form onSubmit={(e: any) => {e.preventDefault(); if (props.chatId) {handleInvite(e.target.email.value, props.chatId)}; setPopupDisplay("none")}}>
+                <form onSubmit={(e: any) => {e.preventDefault(); handleInvite(e.target.email.value, props.chatId!); setPopupDisplay("none")}}>
                     <div className={styles.innerContainer}>
                         <input className={styles.input} name="email" type="email" placeholder="Email"></input>
                     </div>
