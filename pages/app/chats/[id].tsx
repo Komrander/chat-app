@@ -31,11 +31,12 @@ interface ChatPageProps {
 
 export default function ChatPage(props: ChatPageProps) {
     const [popupDisplay, setPopupDisplay] = useState<PopupDisplay>("none");
+    const displayChatName = props.chat.type=="GROUP" ? props.chat.name : "@" + props.chat.name;
 
     return (
         <>
             <Head>
-                <title>{props.chat.type === "GROUP"?props.chatName:"@"+props.chatName}</title>
+                <title>{displayChatName}</title>
             </Head>
             <div className={styles.wrapper}>
                 <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
@@ -43,7 +44,7 @@ export default function ChatPage(props: ChatPageProps) {
                     <div className={styles.container}>
                         <Sidenav chats={props.chats} chatId={props.chatId}/>
                         <div className={styles.main}>
-                            <Header chatType={props.chat.type} chatName={props.chatName}/>
+                            <Header chatName={props.chatName}/>
                             <div className={styles.chatContainer}>
                                 <div className={styles.innerChatContainer}>
                                     <Chat messages={props.chat.messages} chatId={props.chatId} userId={props.userId}/>

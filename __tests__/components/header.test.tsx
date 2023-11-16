@@ -17,24 +17,14 @@ describe("Header - rendering", () => {
         expect(screen.getByText(/^Dashboard$/)).toBeInTheDocument();
     });
 
-    it("Should render group chat title", () => {
+    it("Should render chat title", () => {
         render(
             <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
-                <Header chatName={"My chat"} chatType={"GROUP"}/>
+                <Header chatName={"My chat"}/>
             </PopupContext.Provider>
         );
 
         expect(screen.getByText(/^My chat$/)).toBeInTheDocument();
-    });
-
-    it("Should render direct chat title", () => {
-        render(
-            <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
-                <Header chatName={"User"} chatType={"DIRECT"}/>
-            </PopupContext.Provider>
-        );
-
-        expect(screen.getByText(/^@User$/)).toBeInTheDocument();
     });
 });
 
@@ -45,7 +35,7 @@ describe("Header - click", () => {
     it("Should change popup state when settings is clicked", () => {
         render(
             <PopupContext.Provider value={{ popupDisplay, setPopupDisplay }}>
-                <Header chatName={"User"} chatType={"DIRECT"}/>
+                <Header chatName={"User"}/>
             </PopupContext.Provider>
         );
 

@@ -89,8 +89,8 @@ export default function Popup(props: PopupProps) {
             content = <>
                 <form onSubmit={(e: any) => {e.preventDefault(); handleChangePassword(e.target.oldPassword.value, e.target.newPassword.value); setPopupDisplay("none")}}>
                     <div className={styles.innerContainer}>
-                        <input className={styles.input} name="oldPassword" type="password" placeholder="Old password"></input>
-                        <input className={styles.input} name="newPassword" type="password" placeholder="New password"></input>
+                        <input data-testid="oldPassword" className={styles.input} name="oldPassword" type="password" placeholder="Old password"></input>
+                        <input data-testid="newPassword" className={styles.input} name="newPassword" type="password" placeholder="New password"></input>
                     </div>
                     <div className={styles.buttonContainer}>
                         <Button style="grey" onClick={() => setPopupDisplay("settings")} title="Cancel"/>

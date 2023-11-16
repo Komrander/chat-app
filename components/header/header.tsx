@@ -10,7 +10,6 @@ import Icon from "@/components/icon/icon";
 
 interface HeaderProps {
     chatName?: string;
-    chatType?: ChatType;
 }
 
 export default function Header(props: HeaderProps) {
@@ -18,10 +17,7 @@ export default function Header(props: HeaderProps) {
 
     return (
         <div className={styles.container}>
-            <p className={styles.chatTitle}>{
-            (!props.chatName)?("Dashboard"):
-            ((props.chatType == "GROUP")?(props.chatName):("@"+props.chatName))}
-            </p>
+            <p className={styles.chatTitle}>{props.chatName?props.chatName:"Dashboard"}</p>
             <Icon onClick={() => setPopupDisplay("settings")} icon={faGear}/>
         </div>
     )
