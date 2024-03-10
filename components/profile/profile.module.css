@@ -1,57 +1,57 @@
 .buttonLarge {
-    min-height: 4rem;
-    min-width: 4rem;
-    border-radius: 50%;
-    border: none;
-    background-color: var(--clr-secondary);
-    color: var(--clr-secondary-text);
-    font-size: var(--fs-display-small);
-    font-weight: 400;
-    padding-bottom: 0.2em;
+  min-height: 4rem;
+  min-width: 4rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--clr-secondary);
+  color: var(--clr-secondary-text);
+  font-size: var(--fs-display-small);
+  font-weight: 400;
+  padding-bottom: 0.2em;
 }
 
 .buttonMedium {
-    min-height: 3rem;
-    min-width: 3rem;
-    border-radius: 50%;
-    border: none;
-    background-color: var(--clr-secondary);
-    color: var(--clr-secondary-text);
-    font-size: var(--fs-title-large);
-    font-weight: 400;
-    cursor: pointer;
-    padding-bottom: 0.2em;
+  min-height: 3rem;
+  min-width: 3rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--clr-secondary);
+  color: var(--clr-secondary-text);
+  font-size: var(--fs-title-large);
+  font-weight: 400;
+  cursor: pointer;
+  padding-bottom: 0.2em;
 }
 
 .buttonSmall {
-    min-height: 2rem;
-    min-width: 2rem;
-    border-radius: 50%;
-    border: none;
-    background-color: var(--clr-secondary);
-    color: var(--clr-secondary-text);
-    font-size: var(--fs-title-medium);
-    font-weight: 400;
-    cursor: pointer;
-    padding-bottom: 0.2em;
+  min-height: 2rem;
+  min-width: 2rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--clr-secondary);
+  color: var(--clr-secondary-text);
+  font-size: var(--fs-title-medium);
+  font-weight: 400;
+  cursor: pointer;
+  padding-bottom: 0.2em;
 }
 
 .fullContainer {
-    display: flex;
-    align-items: center;
-    border-radius: 12px;
-    gap: 1rem;
-    width: 100%;
-    padding: 0.5rem;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.5rem;
+  cursor: pointer;
 }
 
 .fullContainer:hover {
-    background-color: var(--clr-background-dark);
+  background-color: var(--clr-background-dark);
 }
 
 .fullName {
-    color: var(--clr-background-text);
-    font-size: var(--fs-text);
-    font-weight: 500;
+  color: var(--clr-background-text);
+  font-size: var(--fs-text);
+  font-weight: 500;
 }

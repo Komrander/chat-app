@@ -1,86 +1,86 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 280px;
-    background-color: var(--clr-primary);
-    z-index: 1;
-    padding: 1rem;
-    min-height: 100%;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  background-color: var(--clr-primary);
+  z-index: 1;
+  padding: 1rem;
+  min-height: 100%;
+  gap: 1rem;
 }
 
 .innerContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
 }
 
 .title {
-    color: var(--clr-primary-text);
-    font-weight: 400;
-    font-size: var(--fs-title-large);
+  color: var(--clr-primary-text);
+  font-weight: 400;
+  font-size: var(--fs-title-large);
 }
 
 .titleContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navButton {
-    display: flex;
-    padding: 0.5rem;
-    gap: 1rem;
-    border-radius: 12px;
-    color: var(--clr-primary-text);
+  display: flex;
+  padding: 0.5rem;
+  gap: 1rem;
+  border-radius: 12px;
+  color: var(--clr-primary-text);
 }
 
 .navButton:hover {
-    background-color: var(--clr-primary-hover);
+  background-color: var(--clr-primary-hover);
 }
 
 .navButtonHighlight {
-    background-color: var(--clr-primary-light);
-    display: flex;
-    padding: 0.5rem;
-    gap: 1rem;
-    border-radius: 12px;
-    color: var(--clr-primary-text);
+  background-color: var(--clr-primary-light);
+  display: flex;
+  padding: 0.5rem;
+  gap: 1rem;
+  border-radius: 12px;
+  color: var(--clr-primary-text);
 }
 
 .navButtonContainer {
-    min-width: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.5rem;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .navButtonHeader {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .navButtonName {
-    font-size: var(--fs-text);
-    font-weight: 500;
-    text-overflow: ellipsis;
-    overflow: hidden; 
-    white-space: nowrap;
+  font-size: var(--fs-text);
+  font-weight: 500;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .navButtonTime {
-    font-size: var(--fs-text-small);
-    font-weight: 400;
+  font-size: var(--fs-text-small);
+  font-weight: 400;
 }
 
 .navButtonMessage {
-    font-size: var(--fs-text-small);
-    font-weight: 400;
-    text-overflow: ellipsis;
-    overflow: hidden; 
-    white-space: nowrap;
+  font-size: var(--fs-text-small);
+  font-weight: 400;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
